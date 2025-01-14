@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedGuide</title>
+    <style>
+        /* Full-page background gradient */
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            height: 100vh; 
+            background: linear-gradient(135deg, #4cafef, #4caf50); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+
+        /* Centered login container */
+        .container { 
+            width: 120%; 
+            max-width: 500px; 
+            background: white; 
+            padding: 40px; 
+            border-radius: 12px; 
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
+            text-align: center; 
+        }
+
+        /* Title and logo styling */
+        .logo-title { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            margin-bottom: 20px; 
+        }
+
+        .logo-title img { 
+            width: 50px; 
+            height: 50px; 
+            margin-right: 12px; 
+        }
+
+        .logo-title h1 { 
+            margin: 0; 
+            color: #1d3557; 
+            font-size: 28px; 
+            font-weight: bold; 
+        }
+
+       /* Placeholder for the top picture */
+.top-picture { 
+    width: 100%; 
+    height: 150px; 
+    background: #f2f2f2; 
+    border-radius: 10px; 
+    margin-bottom: 20px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    color: #888; 
+    font-size: 16px; 
+}
+
+/* Image inside top-picture */
+.top-picture img {
+    max-width: 100%; /* Ensures the image scales down if it's too wide */
+    max-height: 100%; /* Ensures the image scales down if it's too tall */
+    object-fit: contain; /* Keeps the image's aspect ratio intact */
+}
+
+
+        /* Input fields */
+        input, select { 
+            width: 100%; 
+            padding: 12px; 
+            margin: 10px 0; 
+            border: 1px solid #ccc; 
+            border-radius: 6px; 
+            font-size: 14px; 
+        }
+
+        /* Button styling */
+        button { 
+            width: 100%; 
+            padding: 12px; 
+            background-color: #4caf50; 
+            color: white; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold;
+        }
+
+        button:hover { 
+            background-color: #43a047; 
+        }
+
+        /* Sign-up link styling */
+        .signup-link { 
+            margin-top: 15px; 
+            font-size: 14px; 
+        }
+
+        .signup-link a { 
+            color: #007bff; 
+            text-decoration: none; 
+        }
+
+        .signup-link a:hover { 
+            text-decoration: underline; 
+        }
+        .but
+        {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo and Title -->
+        <div class="logo-title">
+            <img src="images/images.png" alt="Stethoscope"> <!-- Replace with your image path -->
+            <h1>MEDGUIDE</h1>
+        </div>
+
+        <!-- Placeholder for the top picture -->
+        <div class="top-picture">
+            <img src="images/healthlogo.jpg" alt="Health Logo">
+        </div>
+
+        <!-- Login Form -->
+        <h2>Login</h2>
+        <form id="user-form">
+            <input type="email" id="email" placeholder="Enter your email" required>
+            <input type="password" id="password" placeholder="Enter your password" required>
+            <select id="role" required>
+                <option value="" disabled selected>Select Role</option>
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+            </select>
+            <button type="submit">Login</button>
+        </form>
+          
+        <!-- Sign-Up Link -->
+        <div class="signup-link">
+            <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('user-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const role = document.getElementById('role').value;
+    
+            // Send the login request to the backend
+            const response = await fetch(`/api/${role}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password, role })
+            });
+    
+            const result = await response.json();
+    
+            // Display the message from the backend
+            alert(result.message);
+    
+            // If redirectTo is present in the response, redirect the user to that page
+            if (result.redirectTo) {
+                window.location.href = result.redirectTo;
+            }
+        });
+    </script>
+</body>
+</html>

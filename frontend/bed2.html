@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Bed2 Availability</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #e3f2fd, #bbdefb);
+            color: #333;
+        }
+
+        header {
+            background-color: #0047ab;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .ward {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .ward:last-child {
+            border-bottom: none;
+        }
+
+        .ward h3 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .ward .bed-count {
+            font-size: 18px;
+            font-weight: bold;
+            color: #0047ab;
+        }
+
+        .total {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 24px;
+            color: #0047ab;
+            font-weight: bold;
+        }
+
+        .button-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .button-container a {
+            display: inline-block;
+            background: #ff5c5c;
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .button-container a:hover {
+            background: #d04c4c;
+        }
+
+        footer {
+            background-color: #0047ab;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        function loadBed2Availability() {
+            const bed2Data = JSON.parse(localStorage.getItem('bedAvailabilityData_bed2')) || {};
+
+            document.getElementById('general2-count').textContent = bed2Data['general2'] || 0;
+            document.getElementById('icu2-count').textContent = bed2Data['icu2'] || 0;
+            document.getElementById('private2-count').textContent = bed2Data['private2'] || 0;
+            document.getElementById('emergency2-count').textContent = bed2Data['emergency2'] || 0;
+
+            const total = Object.values(bed2Data).reduce((sum, count) => sum + (count || 0), 0);
+            document.getElementById('totalBeds2').textContent = `Total Beds Available: ${total}`;
+        }
+
+        window.onload = loadBed2Availability;
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Hospital Bed2 Availability</h1>
+        <p>Check the availability of beds across various wards for Bed2</p>
+    </header>
+
+    <div class="container">
+        <div class="ward">
+            <h3>General Ward</h3>
+            <span id="general2-count" class="bed-count">0</span>
+        </div>
+        <div class="ward">
+            <h3>ICU</h3>
+            <span id="icu2-count" class="bed-count">0</span>
+        </div>
+        <div class="ward">
+            <h3>Private Ward</h3>
+            <span id="private2-count" class="bed-count">0</span>
+        </div>
+        <div class="ward">
+            <h3>Emergency Ward</h3>
+            <span id="emergency2-count" class="bed-count">0</span>
+        </div>
+
+        <div id="totalBeds2" class="total">Total Beds Available: 0</div>
+
+        <div class="button-container">
+            <a href="book_appointment.html">Book Appointment</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>Sri PSG Hospital | Address: Coimbatore, Tamil Nadu, India | Phone: +91-1234567890 | Email: info@psghospital.com</p>
+    </footer>
+</body>
+</html>

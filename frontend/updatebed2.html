@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Update Bed2 Availability</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #f5f5f5, #dfe6e9);
+            color: #333;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .ward {
+            margin-bottom: 15px;
+        }
+
+        .ward label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .ward input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            background: #27ae60;
+            color: white;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button-container button:hover {
+            background: #219150;
+        }
+
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        function saveBed2Availability() {
+            const wards = document.querySelectorAll('.ward input');
+            const updatedData = {};
+
+            wards.forEach(ward => {
+                updatedData[ward.id] = parseInt(ward.value) || 0;
+            });
+
+            localStorage.setItem('bedAvailabilityData_bed2', JSON.stringify(updatedData));
+            alert('Bed availability for Bed2 updated successfully!');
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Admin Panel - Update Bed2 Availability</h1>
+    </header>
+
+    <div class="container">
+        <div class="ward">
+            <label for="general2">General Ward</label>
+            <input type="number" id="general2" placeholder="Enter number of beds">
+        </div>
+        <div class="ward">
+            <label for="icu2">ICU</label>
+            <input type="number" id="icu2" placeholder="Enter number of beds">
+        </div>
+        <div class="ward">
+            <label for="private2">Private Ward</label>
+            <input type="number" id="private2" placeholder="Enter number of beds">
+        </div>
+        <div class="ward">
+            <label for="emergency2">Emergency Ward</label>
+            <input type="number" id="emergency2" placeholder="Enter number of beds">
+        </div>
+
+        <div class="button-container">
+            <button onclick="saveBed2Availability()">Update</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>PSG Hospital | Admin Panel</p>
+    </footer>
+</body>
+</html>

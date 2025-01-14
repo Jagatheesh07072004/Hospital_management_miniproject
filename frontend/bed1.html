@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Bed Availability</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #e3f2fd, #bbdefb);
+            color: #333;
+        }
+
+        header {
+            background-color: #0047ab;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .ward {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .ward:last-child {
+            border-bottom: none;
+        }
+
+        .ward h3 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .ward .bed-count {
+            font-size: 18px;
+            font-weight: bold;
+            color: #0047ab;
+        }
+
+        .total {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 24px;
+            color: #0047ab;
+            font-weight: bold;
+        }
+
+        .button-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .button-container a {
+            display: inline-block;
+            background: #ff5c5c;
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .button-container a:hover {
+            background: #d04c4c;
+        }
+
+        footer {
+            background-color: #0047ab;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        function calculateTotal() {
+            const beds = document.querySelectorAll('.bed-count');
+            let total = 0;
+            beds.forEach(bed => {
+                total += parseInt(bed.textContent);
+            });
+            document.getElementById('totalBeds').textContent = `Total Beds Available: ${total}`;
+        }
+
+        window.onload = function () {
+            // Retrieve bed availability data from localStorage
+            const bedData = JSON.parse(localStorage.getItem('bedAvailability'));
+
+            if (bedData) {
+                // Update the bed count for each ward dynamically
+                document.querySelector('.general .bed-count').textContent = bedData['General Ward'] || 0;
+                document.querySelector('.icu .bed-count').textContent = bedData['ICU'] || 0;
+                document.querySelector('.private .bed-count').textContent = bedData['Private Ward'] || 0;
+                document.querySelector('.emergency .bed-count').textContent = bedData['Emergency Ward'] || 0;
+
+                // Recalculate total
+                calculateTotal();
+            } else {
+                // If no data is available, show a default message
+                document.getElementById('totalBeds').textContent = "Total Beds Available: 0";
+            }
+        };
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Hospital Bed Availability</h1>
+        <p>Check the availability of beds across various wards</p>
+    </header>
+
+    <div class="container">
+        <div class="ward general">
+            <h3>General Ward</h3>
+            <span class="bed-count">50</span>
+        </div>
+        <div class="ward icu">
+            <h3>ICU</h3>
+            <span class="bed-count">10</span>
+        </div>
+        <div class="ward private">
+            <h3>Private Ward</h3>
+            <span class="bed-count">20</span>
+        </div>
+        <div class="ward emergency">
+            <h3>Emergency Ward</h3>
+            <span class="bed-count">5</span>
+        </div>
+
+        <div id="totalBeds" class="total">Total Beds Available: 0</div>
+
+        <div class="button-container">
+            <a href="book_appointment.html">Book Appointment</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>Sri Ramakrishna Hospital | Address: Coimbatore, Tamil Nadu, India | Phone: +91-1234567890 | Email: info@sriramakrishnahospital.com</p>
+    </footer>
+</body>
+</html>
