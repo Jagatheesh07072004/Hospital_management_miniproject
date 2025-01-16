@@ -10,7 +10,11 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "mongoose": "^7.0.0",
+<<<<<<< HEAD
     "nodemailer": "^6.9.16",
     "twilio": "^5.4.2"
+=======
+    "nodemailer": "^6.9.16"
+>>>>>>> aed97d35726519ddbe572c6b9ec83a9ee4e7c4d8
   }
 }

@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Search Hospitals in Coimbatore</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #e8f8f5;
-            color: #333;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #e8f8f5;
+        color: #333;
+      }
 
+<<<<<<< HEAD
         header {
             background-color: #5dade2;
             color: white;
@@ -48,88 +49,103 @@
         .user-info button:hover {
             background-color: #0b5345;
         }
+=======
+      header {
+        background-color: #5dade2;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        word-wrap: nowrap;
+      }
+>>>>>>> aed97d35726519ddbe572c6b9ec83a9ee4e7c4d8
 
-        .content {
-            padding: 20px;
-        }
+      .content {
+        padding: 20px;
+      }
 
-        .search-bar {
-            margin-bottom: 20px;
-            text-align: center;
-        }
+      .search-bar {
+        margin-bottom: 20px;
+        text-align: center;
+      }
 
-        .search-bar input {
-            width: 60%;
-            padding: 10px;
-            border: 1px solid #5dade2;
-            border-radius: 5px;
-        }
+      .search-bar input {
+        width: 60%;
+        padding: 10px;
+        border: 1px solid #5dade2;
+        border-radius: 5px;
+      }
 
-        .advice, .quotes {
-            margin: 20px 0;
-            padding: 20px;
-            background-color: #d4efdf;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
+      .advice,
+      .quotes {
+        margin: 20px 0;
+        padding: 20px;
+        background-color: #d4efdf;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
 
-        .hospitals-list {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #aed6f1;
-            border-radius: 8px;
-        }
+      .hospitals-list {
+        margin-top: 20px;
+        padding: 20px;
+        background-color: #aed6f1;
+        border-radius: 8px;
+      }
 
-        .hospitals-list ul {
-            list-style-type: none;
-            padding: 0;
-        }
+      .hospitals-list ul {
+        list-style-type: none;
+        padding: 0;
+      }
 
-        .hospitals-list li {
-            margin: 10px 0;
-            font-size: 18px;
-        }
+      .hospitals-list li {
+        margin: 10px 0;
+        font-size: 18px;
+      }
 
-        .hospitals-list a {
-            text-decoration: none;
-            color: #117a65;
-            font-weight: bold;
-        }
+      .hospitals-list a {
+        text-decoration: none;
+        color: #117a65;
+        font-weight: bold;
+      }
 
-        .hospitals-list a:hover {
-            color: #0b5345;
-        }
+      .hospitals-list a:hover {
+        color: #0b5345;
+      }
 
-        footer {
-            background-color: #5dade2;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
+      footer {
+        background-color: #5dade2;
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <header>
+<<<<<<< HEAD
         <h1>Search Hospitals in Coimbatore</h1>
         <div class="user-info">
             <span id="userEmail">Welcome, Guest</span>
             <button onclick="viewProfile()">View Profile</button>
         </div>
         
+=======
+      <h1>Search Hospitals in Coimbatore</h1>
+>>>>>>> aed97d35726519ddbe572c6b9ec83a9ee4e7c4d8
     </header>
     <div class="content">
-        <div class="search-bar">
-            <input 
-                type="text" 
-                id="searchInput" 
-                placeholder="Search hospitals by name..." 
-                onkeyup="filterHospitals()"
-            >
-        </div>
+      <div class="search-bar">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search hospitals by name..."
+          onkeyup="filterHospitals()"
+        />
+      </div>
 
+<<<<<<< HEAD
         <div class="advice">
             <h2>Find the Perfect Care: Your One-Stop Hospital Search & Booking Hub</h2>
             <p>
@@ -149,12 +165,42 @@
                 <li><a href="#" target="_blank">7. Royal Care Hospital</a></li>
             </ul>
         </div>
+=======
+      <div class="advice">
+        <h2>Health Advice</h2>
+        <p>
+          Stay hydrated, eat a balanced diet, exercise regularly, and get at
+          least 7 hours of sleep daily.
+        </p>
+      </div>
+      <div class="hospitals-list">
+        <h2>List of Hospitals</h2>
+        <ul id="hospitalList">
+          <li>
+            <a href="userpage.html" target="_blank"
+              >1. Sri Ramakrishna Hospital</a
+            >
+          </li>
+          <li>
+            <a href="psguserpage.html" target="_blank">2. PSG Hospital</a>
+          </li>
+          <li>
+            <a href="#" target="_blank">3. Kovai Medical Center and Hospital</a>
+          </li>
+          <li><a href="#" target="_blank">4. Ganga Hospital</a></li>
+          <li><a href="#" target="_blank">5. Lotus Eye Hospital</a></li>
+          <li><a href="#" target="_blank">6. GEM Hospital</a></li>
+          <li><a href="#" target="_blank">7. Royal Care Hospital</a></li>
+        </ul>
+      </div>
+>>>>>>> aed97d35726519ddbe572c6b9ec83a9ee4e7c4d8
     </div>
     <footer>
-        &copy; 2025 Search Hospitals in Coimbatore. All Rights Reserved.
+      &copy; 2025 Search Hospitals in Coimbatore. All Rights Reserved.
     </footer>
 
     <script>
+<<<<<<< HEAD
         // Simulate logged-in user email
         const userEmail = localStorage.getItem('userEmail') || 'guest@example.com';
         document.getElementById('userEmail').textContent = `Welcome, ${userEmail}`;
@@ -169,16 +215,24 @@
             const input = document.getElementById('searchInput').value.toLowerCase();
             const hospitalList = document.getElementById('hospitalList');
             const hospitals = hospitalList.getElementsByTagName('li');
+=======
+      function filterHospitals() {
+        const input = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+        const hospitalList = document.getElementById("hospitalList");
+        const hospitals = hospitalList.getElementsByTagName("li");
+>>>>>>> aed97d35726519ddbe572c6b9ec83a9ee4e7c4d8
 
-            for (let i = 0; i < hospitals.length; i++) {
-                const hospital = hospitals[i].textContent || hospitals[i].innerText;
-                if (hospital.toLowerCase().includes(input)) {
-                    hospitals[i].style.display = '';
-                } else {
-                    hospitals[i].style.display = 'none';
-                }
-            }
+        for (let i = 0; i < hospitals.length; i++) {
+          const hospital = hospitals[i].textContent || hospitals[i].innerText;
+          if (hospital.toLowerCase().includes(input)) {
+            hospitals[i].style.display = "";
+          } else {
+            hospitals[i].style.display = "none";
+          }
         }
+      }
     </script>
-</body>
+  </body>
 </html>
