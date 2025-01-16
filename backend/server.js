@@ -206,7 +206,7 @@ app.post("/api/notify", async (req, res) => {
       service: "gmail",
       auth: {
         user: "krishnakumar.2201115@srec.ac.in", // Replace with your email
-        pass: "Nitheesh23&", // Replace with your email password or app password
+        pass: "your_password", // Replace with your email password or app password
       },
     });
 

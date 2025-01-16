@@ -1,81 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sri Ramakrishna Admin Dashboard</title>
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
 
-        .sidebar {
-            background-color: #007bff;
-            color: white;
-            width: 240px;
-            position: fixed;
-            height: 100%;
-            padding-top: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-        }
+      .sidebar {
+        background-color: #007bff;
+        color: white;
+        width: 240px;
+        position: fixed;
+        height: 100%;
+        padding-top: 20px;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+      }
 
-        .sidebar h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 20px;
-            color: rgb(12, 0, 0);
-        }
+      .sidebar h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 20px;
+        color: rgb(12, 0, 0);
+      }
 
-        .sidebar a {
-            color: rgb(46, 45, 45);
-            text-decoration: none;
-            display: block;
-            padding: 10px;
-            margin-bottom: 5px;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
+      .sidebar a {
+        color: rgb(46, 45, 45);
+        text-decoration: none;
+        display: block;
+        padding: 10px;
+        margin-bottom: 5px;
+        font-weight: bold;
+        transition: background-color 0.3s;
+      }
 
-        .sidebar a:hover {
-            background-color: #0056b3;
-        }
-        .sidebar a:active {
+      .sidebar a:hover {
+        background-color: #0056b3;
+      }
+      .sidebar a:active {
         transform: scale(0.95);
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-    }
-        .main {
-            margin-left: 260px;
-            padding: 20px;
-            flex-grow: 1;
-        }
+      }
+      .main {
+        margin-left: 260px;
+        padding: 20px;
+        flex-grow: 1;
+      }
 
-        .welcome-box {
-            background-color: #007bff;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
+      .welcome-box {
+        background-color: #007bff;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
 
-        .welcome-box h1 {
-            margin: 0;
-            font-size: 24px;
-        }
+      .welcome-box h1 {
+        margin: 0;
+        font-size: 24px;
+      }
 
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            justify-content: center;
-        }
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        justify-content: center;
+      }
 
-        .card {
+      .card {
         background-color: #987bd7;
         padding: 20px;
         border-radius: 8px;
@@ -84,71 +84,69 @@
         height: 200px;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
         cursor: pointer;
-    }
+      }
 
-    .card:hover {
+      .card:hover {
         transform: scale(1.05); /* Slightly increase size */
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add a larger shadow */
-    }
-        .card h2 {
-            margin: 0;
-            font-size: 30px;
-            color: #0f141a;
-        }
+      }
+      .card h2 {
+        margin: 0;
+        font-size: 30px;
+        color: #0f141a;
+      }
 
-        .card p {
-            margin: 10px 0 0;
-            font-size: 22px;
-            color: #030303;
-        }
+      .card p {
+        margin: 10px 0 0;
+        font-size: 22px;
+        color: #030303;
+      }
 
-        footer {
-            background: linear-gradient(to right, #a1a1a1, #007bff);
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-        }
+      footer {
+        background: linear-gradient(to right, #a1a1a1, #007bff);
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="sidebar">
-        <h2>PSG Admin</h2>
-        <a href="#">Dashboard</a>
-        <a href="#">Appointments</a>
-        <a href="#">Medicine Inventory</a>
-        <a href="updatebed2.html">Bed Management</a>
-        <a href="index.html">Logout</a>
+      <h2>PSG Admin</h2>
+      <a href="#">Dashboard</a>
+      <a href="#">Appointments</a>
+      <a href="medinv1.html">Medicine Inventory</a>
+      <a href="updatebed2.html">Bed Management</a>
+      <a href="index.html">Logout</a>
     </div>
 
     <div class="main">
-        <div class="welcome-box">
-            <h1>Welcome to PSG Hospital Admin Dashboard</h1>
+      <div class="welcome-box">
+        <h1>Welcome to PSG Hospital Admin Dashboard</h1>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <h2>150</h2>
+          <p>Appointments</p>
         </div>
-        <div class="cards">
-            <div class="card">
-                <h2>150</h2>
-                <p>Appointments</p>
-            </div>
-            <div class="card">
-                <h2>50</h2>
-                <p>New Patients</p>
-            </div>
-            <div class="card">
-                <h2>200</h2>
-                <p>Medicines Sold</p>
-            </div>
-            <div class="card">
-                <h2>80</h2>
-                <p>Lab Tests</p>
-            </div>
+        <div class="card">
+          <h2>50</h2>
+          <p>New Patients</p>
         </div>
+        <div class="card">
+          <h2>200</h2>
+          <p>Medicines Sold</p>
+        </div>
+        <div class="card">
+          <h2>80</h2>
+          <p>Lab Tests</p>
+        </div>
+      </div>
     </div>
-    <footer>
-        &copy; 2025 PSG Hospital. All Rights Reserved.
-    </footer>
-</body>
+    <footer>&copy; 2025 PSG Hospital. All Rights Reserved.</footer>
+  </body>
 </html>

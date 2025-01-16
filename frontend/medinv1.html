@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medicine Inventory</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+      }
+
+      h1,
+      h2 {
+        text-align: center;
+        color: #4caf50;
+        text-transform: uppercase;
+        margin: 20px 0;
+        font-size: 36px;
+        animation: fadeIn 1s ease-out;
+      }
+
+      section {
+        margin: 20px;
+      }
+
+      table {
+        width: 80%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        animation: fadeIn 1.5s ease-out;
+      }
+
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: center;
+        font-size: 16px;
+      }
+
+      th {
+        background-color: #007bff;
+        color: white;
+        text-transform: uppercase;
+      }
+
+      td {
+        background-color: #f9f9f9;
+        transition: background-color 0.3s ease;
+      }
+
+      td:hover {
+        background-color: #f1f1f1;
+        cursor: pointer;
+      }
+
+      button {
+        padding: 10px 20px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        font-size: 14px;
+      }
+
+      button:hover {
+        background-color: #218838;
+      }
+
+      #pagination {
+        margin-top: 20px;
+        text-align: center;
+      }
+
+      #pagination button {
+        padding: 10px;
+        margin: 5px;
+        cursor: pointer;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+
+      #pagination button:hover {
+        background-color: #0056b3;
+      }
+
+      #bill {
+        margin-top: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        background-color: #ffffff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 2s ease-out;
+      }
+
+      #bill p {
+        font-size: 16px;
+        margin: 5px 0;
+        color: #333;
+      }
+
+      #bill p.total {
+        font-weight: bold;
+        color: #28a745;
+        font-size: 18px;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .action-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .action-buttons button {
+        padding: 12px 24px;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Medicine Inventory</h1>
+      <section id="inventory-section">
+        <table id="inventory-table">
+          <thead>
+            <tr>
+              <th>Medicine Name</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Expiry Date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Rows dynamically populated -->
+          </tbody>
+        </table>
+        <div id="pagination">
+          <button id="prev" onclick="changePage(-1)">Previous</button>
+          <span id="page-info"></span>
+          <button id="next" onclick="changePage(1)">Next</button>
+        </div>
+      </section>
+
+      <h2>Bill</h2>
+      <div id="bill">
+        <!-- Bill items will be displayed here -->
+      </div>
+      <button onclick="generateBill()">Generate Bill</button>
+    </div>
+
+    <script>
+      let currentPage = 1;
+
+      // Fetch and Display Medicines
+      async function fetchInventory(page = 1) {
+        const response = await fetch(`/api/medicines?page=${page}`);
+        const data = await response.json();
+        const tableBody = document.querySelector("#inventory-table tbody");
+        const pageInfo = document.querySelector("#page-info");
+
+        tableBody.innerHTML = "";
+        data.medicines.forEach((medicine) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${medicine.name}</td>
+            <td>${medicine.quantity}</td>
+            <td>${medicine.price}</td>
+            <td>${medicine.expiryDate}</td>
+            <td><button onclick="addToBill('${medicine._id}', '${medicine.name}', ${medicine.price}, ${medicine.quantity})">Add to Bill</button>
+                <button onclick="updateQuantity('${medicine._id}', ${medicine.quantity})">Update Quantity</button></td>
+          `;
+          tableBody.appendChild(row);
+
+          if (medicine.quantity < 10) notifyLowStock(medicine.name);
+        });
+
+        currentPage = data.currentPage;
+        pageInfo.textContent = `Page ${data.currentPage} of ${data.totalPages}`;
+        document.getElementById("prev").disabled = currentPage === 1;
+        document.getElementById("next").disabled =
+          currentPage === data.totalPages;
+      }
+
+      function changePage(direction) {
+        fetchInventory(currentPage + direction);
+      }
+
+      const bill = [];
+      function addToBill(id, name, price, availableQuantity) {
+        const quantity = prompt(
+          `Enter quantity for ${name} (Available: ${availableQuantity}):`
+        );
+        if (quantity > 0 && quantity <= availableQuantity) {
+          bill.push({ id, name, quantity, price });
+          document.querySelector(
+            "#bill"
+          ).innerHTML += `<p>${name} - ${quantity} x ${price} = ${
+            quantity * price
+          }</p>`;
+        } else alert("Invalid quantity!");
+      }
+
+      async function generateBill() {
+        const total = bill.reduce(
+          (sum, item) => sum + item.quantity * item.price,
+          0
+        );
+        alert(`Total Bill Amount: ${total}`);
+        await fetch("/api/update-inventory", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(bill),
+        });
+        bill.length = 0;
+        fetchInventory(currentPage);
+      }
+
+      async function updateQuantity(id, currentQuantity) {
+        const newQuantity = prompt(
+          `Enter new quantity for this medicine (Current: ${currentQuantity}):`
+        );
+
+        // Ensure that the new quantity is a valid number, within range, and not negative
+        if (newQuantity !== null && !isNaN(newQuantity) && newQuantity >= 0) {
+          // Send the new quantity to the backend
+          await fetch("/api/update-inventory", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify([{ id, quantity: -newQuantity }]), // Update the inventory based on the difference
+          });
+          alert("Quantity updated successfully!");
+          fetchInventory(currentPage); // Refresh the inventory after updating
+        } else {
+          alert(
+            "Invalid quantity entered! Please enter a non-negative number."
+          );
+        }
+      }
+
+      async function notifyLowStock(medicineName) {
+        await fetch("/api/notify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ medicineName }),
+        });
+      }
+
+      fetchInventory();
+    </script>
+  </body>
+</html>
