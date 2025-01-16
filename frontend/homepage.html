@@ -18,6 +18,35 @@
             color: white;
             padding: 20px;
             text-align: center;
+            position: relative;
+        }
+
+        .user-info {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            font-size: 14px;
+            text-align: right;
+        }
+
+        .user-info span {
+            display: block;
+        }
+
+        .user-info button {
+            margin-top: 5px;
+            padding: 5px 10px;
+            font-size: 14px;
+            background-color: #117a65;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .user-info button:hover {
+            background-color: #0b5345;
         }
 
         .content {
@@ -85,6 +114,11 @@
 <body>
     <header>
         <h1>Search Hospitals in Coimbatore</h1>
+        <div class="user-info">
+            <span id="userEmail">Welcome, Guest</span>
+            <button onclick="viewProfile()">View Profile</button>
+        </div>
+        
     </header>
     <div class="content">
         <div class="search-bar">
@@ -97,8 +131,11 @@
         </div>
 
         <div class="advice">
-            <h2>Health Advice</h2>
-            <p>Stay hydrated, eat a balanced diet, exercise regularly, and get at least 7 hours of sleep daily.</p>
+            <h2>Find the Perfect Care: Your One-Stop Hospital Search & Booking Hub</h2>
+            <p>
+                Find the Perfect Care: Your One-Stop Hospital Search & Booking Hub
+                
+                Discover top hospitals near you, check visiting hours, explore specialists, track real-time bed availability, and book appointments with trusted doctors—all in one seamless platform. Your health, your choice, made simple.</p>
         </div>
         <div class="hospitals-list">
             <h2>List of Hospitals</h2>
@@ -118,6 +155,16 @@
     </footer>
 
     <script>
+        // Simulate logged-in user email
+        const userEmail = localStorage.getItem('userEmail') || 'guest@example.com';
+        document.getElementById('userEmail').textContent = `Welcome, ${userEmail}`;
+
+        // View profile function
+        function viewProfile() {
+            window.location.href = 'profile.html';
+        }
+
+        // Filter hospitals function
         function filterHospitals() {
             const input = document.getElementById('searchInput').value.toLowerCase();
             const hospitalList = document.getElementById('hospitalList');

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e8f8f5;
+            color: #333;
+        }
+
+        header {
+            background-color: #117a65;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 36px;
+        }
+
+        .notification-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .notification-box {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .notification-box p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        footer {
+            background-color: #003366;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Notification</h1>
+</header>
+
+<div class="notification-container" id="notification-container">
+    <!-- This container will display the notification details -->
+</div>
+
+<footer>
+    <p>&copy; 2025 Sri Ramakrishna Hospital. All rights reserved.</p>
+</footer>
+
+<script>
+    // Retrieve the notification data from localStorage
+    const notificationData = JSON.parse(localStorage.getItem("notificationData"));
+
+    if (!notificationData) {
+        alert("No notification data found!");
+        window.location.href = "srecapprove.html"; // Redirect back if no data
+    }
+
+    // Display the notification details
+    const container = document.getElementById("notification-container");
+    const notificationBox = document.createElement("div");
+    notificationBox.className = "notification-box";
+
+    notificationBox.innerHTML = `
+        <p><strong>Doctor:</strong> ${notificationData.doctorName}</p>
+        <p><strong>Patient:</strong> ${notificationData.patientName}</p>
+        <p><strong>Email:</strong> ${notificationData.patientEmail}</p>
+        <p><strong>Appointment Date and Time:</strong> ${notificationData.appointmentDateTime}</p>
+        <p><strong>Sent Time:</strong> ${notificationData.sentTime}</p>
+    `;
+
+    container.appendChild(notificationBox);
+</script>
+
+</body>
+</html>

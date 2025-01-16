@@ -149,7 +149,6 @@
             <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
         </div>
     </div>
-
     <script>
         document.getElementById('user-form').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -169,11 +168,13 @@
             // Display the message from the backend
             alert(result.message);
     
-            // If redirectTo is present in the response, redirect the user to that page
             if (result.redirectTo) {
+                // Store user email in localStorage to use it on the homepage
+                localStorage.setItem('userEmail', email);
                 window.location.href = result.redirectTo;
             }
         });
     </script>
+    
 </body>
 </html>

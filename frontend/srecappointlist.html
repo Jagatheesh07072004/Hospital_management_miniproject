@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointments List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            color: #333;
+        }
+
+        header {
+            background-color: #003366;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 36px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .filters {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .filters input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 22%;
+        }
+
+        .appointment {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .appointment p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        .appointment-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .appointment-buttons button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .approve-btn {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .approve-btn:hover {
+            background-color: #218838;
+        }
+
+        .clear-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .clear-btn:hover {
+            background-color: #c82333;
+        }
+
+        footer {
+            background-color: #003366;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Appointments List</h1>
+</header>
+
+<div class="container">
+    <div class="filters">
+        <input type="text" id="filter-doctor" placeholder="Search by Doctor Name" onkeyup="filterAppointments()">
+        <input type="text" id="filter-patient" placeholder="Search by Patient Name" onkeyup="filterAppointments()">
+        <input type="text" id="filter-serial" placeholder="Search by Serial Number" onkeyup="filterAppointments()">
+        <input type="text" id="filter-phone" placeholder="Search by Phone Number" onkeyup="filterAppointments()">
+    </div>
+
+    <div class="container" id="appointments-container">
+        <!-- Appointments will be dynamically inserted here -->
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Sri Ramakrishna Hospital. All rights reserved.</p>
+</footer>
+
+<script>
+    // Retrieve appointments from localStorage
+    const appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+
+    const appointmentsContainer = document.getElementById("appointments-container");
+
+    function displayAppointments(filteredAppointments) {
+        appointmentsContainer.innerHTML = ''; // Clear current appointments
+        if (filteredAppointments.length === 0) {
+            appointmentsContainer.innerHTML = "<p>No appointments match your criteria.</p>";
+        } else {
+            filteredAppointments.forEach((appointment, index) => {
+                const appointmentDiv = document.createElement("div");
+                appointmentDiv.className = "appointment";
+                appointmentDiv.innerHTML = `
+                    <div>
+                        <p><strong>Serial Number:</strong> ${index + 1}</p>
+                        <p><strong>Doctor:</strong> ${appointment.doctorName} (${appointment.department})</p>
+                        <p><strong>Patient Name:</strong> ${appointment.patientName}</p>
+                        <p><strong>Email:</strong> ${appointment.patientEmail}</p>
+                        <p><strong>Phone:</strong> ${appointment.patientPhone}</p>
+                        <p><strong>Appointment Date:</strong> ${appointment.appointmentDate}</p>
+                        <p><strong>Location:</strong> ${appointment.patientLocation}</p>
+                        <p><strong>Subject:</strong> ${appointment.patientSubject}</p>
+                    </div>
+                    <div class="appointment-buttons">
+                        <button class="approve-btn" onclick="approveAppointment(${index})">Approve Appointment</button>
+                        <button class="clear-btn" onclick="clearAppointment(${index})">Clear</button>
+                    </div>
+                `;
+                appointmentsContainer.appendChild(appointmentDiv);
+            });
+        }
+    }
+
+    function filterAppointments() {
+        const doctorFilter = document.getElementById("filter-doctor").value.toLowerCase();
+        const patientFilter = document.getElementById("filter-patient").value.toLowerCase();
+        const serialFilter = document.getElementById("filter-serial").value.toLowerCase();
+        const phoneFilter = document.getElementById("filter-phone").value.toLowerCase();
+
+        const filteredAppointments = appointments.filter((appointment, index) => {
+            const doctorMatch = appointment.doctorName.toLowerCase().includes(doctorFilter);
+            const patientMatch = appointment.patientName.toLowerCase().includes(patientFilter);
+            const serialMatch = (serialFilter === '' || (index + 1).toString().includes(serialFilter));
+            const phoneMatch = appointment.patientPhone.includes(phoneFilter);
+
+            return (doctorMatch && patientMatch && serialMatch && phoneMatch);
+        });
+
+        displayAppointments(filteredAppointments);
+    }
+
+    function approveAppointment(index) {
+        // Redirect to the approval page with the doctor details
+        const appointment = appointments[index];
+        localStorage.setItem("selectedAppointment", JSON.stringify(appointment));
+        window.location.href = "srecapprove.html";  // Navigate to approval page
+    }
+
+    function clearAppointment(index) {
+        // Delete the selected appointment and reorder
+        appointments.splice(index, 1);
+        localStorage.setItem("appointments", JSON.stringify(appointments));
+
+        // Re-render appointments after deletion
+        displayAppointments(appointments);
+    }
+
+    // Display all appointments initially
+    displayAppointments(appointments);
+
+</script>
+
+</body>
+</html>

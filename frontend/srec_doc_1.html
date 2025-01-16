@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Details</title>
+    <style>
+        /* Basic styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            color: #333;
+        }
+
+        header {
+            background-color: #003366;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 36px;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 20px auto;
+            justify-content: space-between;
+        }
+
+        .doctor-info {
+            width: 45%;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .doctor-info h2 {
+            font-size: 32px;
+            color: #003366;
+        }
+
+        .doctor-info p {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .appointment-form {
+            width: 45%;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .appointment-form h2 {
+            font-size: 28px;
+            color: #003366;
+        }
+
+        .appointment-form input,
+        .appointment-form select,
+        .appointment-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .appointment-form button {
+            padding: 12px;
+            background-color: #003366;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .appointment-form button:hover {
+            background-color: #005bb5;
+        }
+
+        footer {
+            background-color: #003366;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+    <h1>Sri Ramakrishna Hospital</h1>
+</header>
+
+<!-- Doctor Details and Appointment Form -->
+<section class="container">
+    <div class="doctor-info" id="doctor-info">
+        <h2 id="doctor-name"></h2>
+        <p id="doctor-department"></p>
+        <p id="doctor-email"></p>
+        <p id="doctor-phone"></p>
+        <p id="doctor-address"></p>
+        <p id="doctor-rating"></p>
+    </div>
+
+    <div class="appointment-form">
+        <h2>Book an Appointment</h2>
+        <form id="appointment-form">
+            <label for="patient-name">Full Name</label>
+            <input type="text" id="patient-name" name="patient-name" required>
+
+            <label for="patient-email">Email Address</label>
+            <input type="email" id="patient-email" name="patient-email" required>
+
+            <label for="patient-phone">Phone Number</label>
+            <input type="tel" id="patient-phone" name="patient-phone" required>
+
+            <label for="appointment-date">Appointment Date</label>
+            <input type="date" id="appointment-date" name="appointment-date" required>
+
+            <label for="patient-location">Location Address</label>
+            <textarea id="patient-location" name="patient-location" rows="3" required></textarea>
+
+            <label for="patient-subject">Subject (Description of Disease)</label>
+            <textarea id="patient-subject" name="patient-subject" rows="3" placeholder="Briefly describe your symptoms or condition" required></textarea>
+
+            <button type="submit">Book Appointment</button>
+        </form>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2025 Sri Ramakrishna Hospital. All rights reserved.</p>
+</footer>
+
+<script>
+    // Get doctor name from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const doctorName = urlParams.get('name');
+
+    // Sample data for doctors (use a real database in production)
+    const doctors = [
+            { name: "Dr. Alice Johnson", department: "Cardiology", email: "alice.johnson@hospital.com", phone: "+1 (123) 456-7890", address: "123 Main St, City", rating: 4 },
+            { name: "Dr. Bob Smith", department: "Neurology", email: "bob.smith@hospital.com", phone: "+1 (234) 567-8901", address: "456 Elm St, City", rating: 5 },
+            { name: "Dr. Charles Davis", department: "Orthopedics", email: "charles.davis@hospital.com", phone: "+1 (345) 678-9012", address: "789 Oak St, City", rating: 4 },
+            { name: "Dr. Emily Clark", department: "Pediatrics", email: "emily.clark@hospital.com", phone: "+1 (456) 789-0123", address: "101 Pine St, City", rating: 5 },
+            { name: "Dr. Grace Lee", department: "Cardiology", email: "grace.lee@hospital.com", phone: "+1 (678) 901-2345", address: "103 Willow Dr, City", rating: 5 },
+            { name: "Dr. Henry Walker", department: "Orthopedics", email: "henry.walker@hospital.com", phone: "+1 (789) 012-3456", address: "104 Maple St, City", rating: 4 },
+            { name: "Dr. Isabelle Taylor", department: "Neurology", email: "isabelle.taylor@hospital.com", phone: "+1 (890) 123-4567", address: "105 Birch Ln, City", rating: 5 },
+            { name: "Dr. Jack Wright", department: "Cardiology", email: "jack.wright@hospital.com", phone: "+1 (901) 234-5678", address: "106 Aspen Rd, City", rating: 4 },
+            { name: "Dr. Karen Miller", department: "Pediatrics", email: "karen.miller@hospital.com", phone: "+1 (012) 345-6789", address: "107 Cedar Ave, City", rating: 5 },
+            { name: "Dr. Liam Brown", department: "Neurology", email: "liam.brown@hospital.com", phone: "+1 (123) 456-7890", address: "108 Oak Rd, City", rating: 5 },
+            { name: "Dr. Monica Green", department: "Cardiology", email: "monica.green@hospital.com", phone: "+1 (234) 567-8901", address: "109 Pine Ave, City", rating: 4 },
+            { name: "Dr. Noah Scott", department: "Orthopedics", email: "noah.scott@hospital.com", phone: "+1 (345) 678-9012", address: "110 Elm Ln, City", rating: 4 },
+            { name: "Dr. Olivia Martinez", department: "Neurology", email: "olivia.martinez@hospital.com", phone: "+1 (456) 789-0123", address: "111 Spruce Dr, City", rating: 5 },
+            { name: "Dr. Peter White", department: "Pediatrics", email: "peter.white@hospital.com", phone: "+1 (567) 890-1234", address: "112 Maple Rd, City", rating: 4 },
+            { name: "Dr. Quinn Evans", department: "Orthopedics", email: "quinn.evans@hospital.com", phone: "+1 (678) 901-2345", address: "113 Willow Ln, City", rating: 5 },
+            { name: "Dr. Rachel Adams", department: "Cardiology", email: "rachel.adams@hospital.com", phone: "+1 (789) 012-3456", address: "114 Cedar Dr, City", rating: 5 },
+            { name: "Dr. Sarah Harris", department: "Neurology", email: "sarah.harris@hospital.com", phone: "+1 (890) 123-4567", address: "115 Birch Ave, City", rating: 4 },
+            { name: "Dr. Thomas Cooper", department: "Pediatrics", email: "thomas.cooper@hospital.com", phone: "+1 (901) 234-5678", address: "116 Aspen Rd, City", rating: 4 },
+            { name: "Dr. Victoria King", department: "Orthopedics", email: "victoria.king@hospital.com", phone: "+1 (012) 345-6789", address: "117 Pine Ln, City", rating: 5 },
+            { name: "Dr. William Foster", department: "Neurology", email: "william.foster@hospital.com", phone: "+1 (123) 456-7890", address: "118 Maple Ave, City", rating: 5 },
+            { name: "Dr. Jagatheesh", department: "Neurology", email: "jagatheesh@hospital.com", phone: "+1 (567) 890-1234", address: "202 Maple Ave, City", rating: 5 }
+        ];
+
+    // Find the doctor details from the sample data
+    const doctor = doctors.find(d => d.name === doctorName);
+
+    if (doctor) {
+        // Populate the doctor details
+        document.getElementById('doctor-name').textContent = doctor.name;
+        document.getElementById('doctor-department').textContent = `Department: ${doctor.department}`;
+        document.getElementById('doctor-email').textContent = `Email: ${doctor.email}`;
+        document.getElementById('doctor-phone').textContent = `Phone: ${doctor.phone}`;
+        document.getElementById('doctor-address').textContent = `Address: ${doctor.address}`;
+        document.getElementById('doctor-rating').textContent = `Rating: ${'★'.repeat(doctor.rating)}${'☆'.repeat(5 - doctor.rating)}`;
+    } else {
+        alert("Doctor not found!");
+    }
+
+    // Add appointment form submission logic
+    document.getElementById("appointment-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        // Gather form data
+        const appointment = {
+            doctorName: doctor.name,
+            department: doctor.department,
+            patientName: document.getElementById("patient-name").value,
+            patientEmail: document.getElementById("patient-email").value,
+            patientPhone: document.getElementById("patient-phone").value,
+            appointmentDate: document.getElementById("appointment-date").value,
+            patientLocation: document.getElementById("patient-location").value,
+            patientSubject: document.getElementById("patient-subject").value,
+        };
+
+        // Save appointment to localStorage
+        const appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+        appointments.push(appointment);
+        localStorage.setItem("appointments", JSON.stringify(appointments));
+
+        alert("Appointment booked successfully!");
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            color: #333;
+        }
+
+        header {
+            background-color: #003366;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 36px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .confirmation-box {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .confirmation-box label,
+        .confirmation-box p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        .confirmation-box input[type="datetime-local"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .confirmation-box button {
+            padding: 10px 20px;
+            background-color: #003366;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .confirmation-box button:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            background-color: #003366;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Appointment Confirmation</h1>
+</header>
+
+<div class="container" id="appointment-container">
+    <!-- This container will display the appointment details and confirmation form -->
+</div>
+
+<footer>
+    <p>&copy; 2025 Sri Ramakrishna Hospital. All rights reserved.</p>
+</footer>
+
+<script>
+    // Retrieve the selected appointment from localStorage
+    const appointment = JSON.parse(localStorage.getItem("selectedAppointment"));
+
+    // Check if appointment data exists
+    if (!appointment) {
+        alert("No appointment data found!");
+        window.location.href = "srecappointlist.html"; // Redirect back to appointment list if no data
+    }
+
+    // Create the confirmation box for appointment details
+    const container = document.getElementById("appointment-container");
+    const confirmationBox = document.createElement("div");
+    confirmationBox.className = "confirmation-box";
+
+    confirmationBox.innerHTML = `
+        <p><strong>Doctor:</strong> ${appointment.doctorName}</p>
+        <p><strong>Patient:</strong> ${appointment.patientName}</p>
+        <p><strong>Email:</strong> ${appointment.patientEmail}</p>
+
+        <label for="appointment-time">Select Date and Time:</label>
+        <input type="datetime-local" id="appointment-time" required>
+
+        <button id="send-message-btn">Send Message</button>
+    `;
+
+    container.appendChild(confirmationBox);
+
+    // Handle the "Send Message" button click
+    document.getElementById("send-message-btn").addEventListener("click", async function () {
+        const selectedDateTime = document.getElementById("appointment-time").value;
+
+        if (selectedDateTime) {
+            // Create the notification details
+            const notificationData = {
+                doctorName: appointment.doctorName,
+                patientName: appointment.patientName,
+                patientEmail: appointment.patientEmail,
+                appointmentDateTime: selectedDateTime,
+                sentTime: new Date().toLocaleString()  // Current date-time of the message sent
+            };
+
+            // Store the notification data in localStorage
+            localStorage.setItem('notificationData', JSON.stringify(notificationData));
+
+            // Sending the appointment confirmation to backend (email sending)
+            const response = await fetch('/api/sendConfirmationEmail', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(notificationData)
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                // Redirect to the notification page
+                window.location.href = "notification1.html";
+            } else {
+                alert("Failed to send confirmation email. Please try again.");
+            }
+        } else {
+            alert("Please select a date and time.");
+        }
+    });
+</script>
+
+
+</body>
+</html>
