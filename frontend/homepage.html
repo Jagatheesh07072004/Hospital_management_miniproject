@@ -12,52 +12,33 @@
         background-color: #e8f8f5;
         color: #333;
       }
-
-<<<<<<< HEAD
-        header {
-            background-color: #5dade2;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            position: relative;
-        }
-
-        .user-info {
-            position: absolute;
-            top: 50%;
-            right: 20px;
-            transform: translateY(-50%);
-            font-size: 14px;
-            text-align: right;
-        }
-
-        .user-info span {
-            display: block;
-        }
-
-        .user-info button {
-            margin-top: 5px;
-            padding: 5px 10px;
-            font-size: 14px;
-            background-color: #117a65;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .user-info button:hover {
-            background-color: #0b5345;
-        }
-=======
-      header {
-        background-color: #5dade2;
-        color: white;
-        padding: 20px;
-        text-align: center;
-        word-wrap: nowrap;
+      .user-info {
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
+        font-size: 14px;
+        text-align: right;
       }
->>>>>>> aed97d35726519ddbe572c6b9ec83a9ee4e7c4d8
+
+      .user-info span {
+        display: block;
+      }
+
+      .user-info button {
+        margin-top: 5px;
+        padding: 5px 10px;
+        font-size: 14px;
+        background-color: #117a65;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .user-info button:hover {
+        background-color: #0b5345;
+      }
 
       .content {
         padding: 20px;
@@ -75,8 +56,7 @@
         border-radius: 5px;
       }
 
-      .advice,
-      .quotes {
+      .advice {
         margin: 20px 0;
         padding: 20px;
         background-color: #d4efdf;
@@ -84,31 +64,60 @@
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       }
 
-      .hospitals-list {
-        margin-top: 20px;
-        padding: 20px;
+      .hospital-box {
+        display: flex;
+        align-items: center;
         background-color: #aed6f1;
         border-radius: 8px;
+        margin-bottom: 15px;
+        padding: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        position: relative;
       }
 
-      .hospitals-list ul {
-        list-style-type: none;
-        padding: 0;
+      .hospital-box img {
+        width: 80px;
+        height: 80px;
+        border-radius: 8px;
+        object-fit: cover;
+        margin-right: 15px;
       }
 
-      .hospitals-list li {
-        margin: 10px 0;
-        font-size: 18px;
+      .hospital-details {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
       }
 
-      .hospitals-list a {
-        text-decoration: none;
+      .hospital-details h3 {
+        margin: 0;
         color: #117a65;
-        font-weight: bold;
       }
 
-      .hospitals-list a:hover {
+      .hospital-details p {
+        margin: 5px 0;
+        color: #555;
+      }
+
+      .hospital-details a {
         color: #0b5345;
+        font-weight: bold;
+        text-decoration: none;
+        margin-top: 5px;
+      }
+
+      .hospital-details a:hover {
+        text-decoration: underline;
+      }
+
+      .location-icon {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
       }
 
       footer {
@@ -120,21 +129,63 @@
         bottom: 0;
         width: 100%;
       }
+      header {
+  background-color: #5dade2;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+header {
+  background-color: #5dade2;
+  color: white;
+  padding: 30px 20px; /* Increased top and bottom padding */
+  text-align: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px; /* You can adjust this value for a fixed height */
+}
+
+header .logo {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  width: 129px; /* Adjust to make it larger */
+  height: 120px; /* Adjust to make it larger */
+  object-fit: contain;
+  border-radius: 100px; /* Ensures the logo scales proportionally */
+}
+
+
+header h1 {
+  margin: 0;
+  font-size: 28px; /* Increased font size for better scaling */
+  flex: 1;
+  text-align: center;
+}
+
+
+
     </style>
   </head>
   <body>
     <header>
-<<<<<<< HEAD
-        <h1>Search Hospitals in Coimbatore</h1>
-        <div class="user-info">
-            <span id="userEmail">Welcome, Guest</span>
-            <button onclick="viewProfile()">View Profile</button>
-        </div>
-        
-=======
+      <img src="images/medlogo.png" alt="Webpage Logo" class="logo" />
       <h1>Search Hospitals in Coimbatore</h1>
->>>>>>> aed97d35726519ddbe572c6b9ec83a9ee4e7c4d8
+      <div class="user-info">
+        <span id="userEmail">Welcome, Guest</span>
+        <button onclick="viewProfile()">View Profile</button>
+      </div>
     </header>
+    
     <div class="content">
       <div class="search-bar">
         <input
@@ -145,93 +196,81 @@
         />
       </div>
 
-<<<<<<< HEAD
-        <div class="advice">
-            <h2>Find the Perfect Care: Your One-Stop Hospital Search & Booking Hub</h2>
-            <p>
-                Find the Perfect Care: Your One-Stop Hospital Search & Booking Hub
-                
-                Discover top hospitals near you, check visiting hours, explore specialists, track real-time bed availability, and book appointments with trusted doctors—all in one seamless platform. Your health, your choice, made simple.</p>
-        </div>
-        <div class="hospitals-list">
-            <h2>List of Hospitals</h2>
-            <ul id="hospitalList">
-                <li><a href="userpage.html" target="_blank">1. Sri Ramakrishna Hospital</a></li>
-                <li><a href="psguserpage.html" target="_blank">2. PSG Hospital</a></li>
-                <li><a href="#" target="_blank">3. Kovai Medical Center and Hospital</a></li>
-                <li><a href="#" target="_blank">4. Ganga Hospital</a></li>
-                <li><a href="#" target="_blank">5. Lotus Eye Hospital</a></li>
-                <li><a href="#" target="_blank">6. GEM Hospital</a></li>
-                <li><a href="#" target="_blank">7. Royal Care Hospital</a></li>
-            </ul>
-        </div>
-=======
       <div class="advice">
-        <h2>Health Advice</h2>
+        <h2>Find the Perfect Care: Your One-Stop Hospital Search & Booking Hub</h2>
         <p>
-          Stay hydrated, eat a balanced diet, exercise regularly, and get at
-          least 7 hours of sleep daily.
+          Discover top hospitals near you, check visiting hours, explore
+          specialists, track real-time bed availability, and book appointments
+          with trusted doctors—all in one seamless platform. Your health, your
+          choice, made simple.
         </p>
       </div>
-      <div class="hospitals-list">
-        <h2>List of Hospitals</h2>
-        <ul id="hospitalList">
-          <li>
-            <a href="userpage.html" target="_blank"
-              >1. Sri Ramakrishna Hospital</a
-            >
-          </li>
-          <li>
-            <a href="psguserpage.html" target="_blank">2. PSG Hospital</a>
-          </li>
-          <li>
-            <a href="#" target="_blank">3. Kovai Medical Center and Hospital</a>
-          </li>
-          <li><a href="#" target="_blank">4. Ganga Hospital</a></li>
-          <li><a href="#" target="_blank">5. Lotus Eye Hospital</a></li>
-          <li><a href="#" target="_blank">6. GEM Hospital</a></li>
-          <li><a href="#" target="_blank">7. Royal Care Hospital</a></li>
-        </ul>
+
+      <div id="hospitalList">
+        <div class="hospital-box">
+          <img src="images/srecmini.png" alt="Sri Ramakrishna Hospital" />
+          <div class="hospital-details">
+            <h3>Sri Ramakrishna Hospital</h3>
+            <p>Address: 395 Sarojini Naidu Rd, Coimbatore</p>
+            <p>Phone: +91 422 450 4500</p>
+            <a href="userpage.html" target="_blank">Visit</a>
+          </div>
+          <img
+            class="location-icon"
+            src="images/locationicon.png"
+            alt="Location"
+            onclick="openGoogleMaps('Sri Ramakrishna Hospital, Coimbatore')"
+          />
+        </div>
+        <div class="hospital-box">
+          <img src="images/psgmini.png" alt="PSG Hospital" />
+          <div class="hospital-details">
+            <h3>PSG Hospital</h3>
+            <p>Address: Peelamedu, Coimbatore</p>
+            <p>Phone: +91 422 257 0170</p>
+            <a href="psguserpage.html" target="_blank">Visit</a>
+          </div>
+          <img
+            class="location-icon"
+            src="images/locationicon.png"
+            alt="Location"
+            onclick="openGoogleMaps('PSG Hospital, Coimbatore')"
+          />
+        </div>
+        <!-- Add more hospitals in the same format -->
       </div>
->>>>>>> aed97d35726519ddbe572c6b9ec83a9ee4e7c4d8
     </div>
     <footer>
       &copy; 2025 Search Hospitals in Coimbatore. All Rights Reserved.
     </footer>
 
     <script>
-<<<<<<< HEAD
-        // Simulate logged-in user email
-        const userEmail = localStorage.getItem('userEmail') || 'guest@example.com';
-        document.getElementById('userEmail').textContent = `Welcome, ${userEmail}`;
+      const userEmail = localStorage.getItem("userEmail") || "guest@example.com";
+      document.getElementById("userEmail").textContent = `Welcome, ${userEmail}`;
 
-        // View profile function
-        function viewProfile() {
-            window.location.href = 'profile.html';
-        }
+      function viewProfile() {
+        window.location.href = "profile.html";
+      }
 
-        // Filter hospitals function
-        function filterHospitals() {
-            const input = document.getElementById('searchInput').value.toLowerCase();
-            const hospitalList = document.getElementById('hospitalList');
-            const hospitals = hospitalList.getElementsByTagName('li');
-=======
       function filterHospitals() {
-        const input = document
-          .getElementById("searchInput")
-          .value.toLowerCase();
-        const hospitalList = document.getElementById("hospitalList");
-        const hospitals = hospitalList.getElementsByTagName("li");
->>>>>>> aed97d35726519ddbe572c6b9ec83a9ee4e7c4d8
+        const input = document.getElementById("searchInput").value.toLowerCase();
+        const hospitalBoxes = document.querySelectorAll(".hospital-box");
 
-        for (let i = 0; i < hospitals.length; i++) {
-          const hospital = hospitals[i].textContent || hospitals[i].innerText;
-          if (hospital.toLowerCase().includes(input)) {
-            hospitals[i].style.display = "";
+        hospitalBoxes.forEach((box) => {
+          const name = box.querySelector("h3").textContent.toLowerCase();
+          if (name.includes(input)) {
+            box.style.display = "flex";
           } else {
-            hospitals[i].style.display = "none";
+            box.style.display = "none";
           }
-        }
+        });
+      }
+
+      function openGoogleMaps(location) {
+        const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+          location
+        )}`;
+        window.open(url, "_blank");
       }
     </script>
   </body>

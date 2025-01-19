@@ -1,12 +1,14 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const nodemailer = require("nodemailer");
+const cors = require("cors");  // Added CORS for cross-origin requests
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
 // Middleware
 app.use(express.json());
 app.use(express.static(__dirname + "/../frontend"));
+app.use(cors());  // Allow cross-origin requests
 
 // MongoDB connection
 mongoose.connect("mongodb://localhost:27017/newproject", {
@@ -130,6 +132,7 @@ app.post("/api/user", async (req, res) => {
   await user.save();
   res.json({ message: "Signup successful!", redirectTo: "/userpage.html" });
 });
+
 // Update Medicine Quantity API
 app.put("/api/medicines/:id", async (req, res) => {
   const { id } = req.params;
@@ -206,21 +209,57 @@ app.post("/api/notify", async (req, res) => {
       service: "gmail",
       auth: {
         user: "krishnakumar.2201115@srec.ac.in", // Replace with your email
-        pass: "your_password", // Replace with your email password or app password
+        pass: "Nitheesh23&", // Replace with your email password or app password
       },
     });
 
     const mailOptions = {
-      from: "krishnakumar.2201115@srec.ac.in",
-      to: "morthikrishna2017@gmail.com",
+      from: "krishnakumar.2201115@srec.ac.in", // Replace with your email
+      to: medicine.supplierEmail, // Send to the supplier's email dynamically
       subject: "Low Stock Alert",
       text: `The stock for ${medicineName} is below 10. Please restock.`,
     };
 
-    await transporter.sendMail(mailOptions);
+    try {
+      await transporter.sendMail(mailOptions);
+      res.status(200).json({ message: "Notification sent successfully." });
+    } catch (error) {
+      console.error("Error sending email:", error);
+      res.status(500).json({ message: "Failed to send notification." });
+    }
+  } else {
+    res.status(404).json({ message: "Medicine or supplier email not found." });
   }
-  res.sendStatus(200);
 });
+
+app.post("/api/sendConfirmationEmail", async (req, res) => {
+  const { doctorName, patientName, patientEmail, appointmentDateTime } = req.body;
+
+  // Create a transporter using your email provider
+  const transporter = nodemailer.createTransport({
+    service: "gmail",  // You can use any email service provider
+    auth: {
+      user: "krishnakumar.2201115@srec.ac.in", // Your email here
+      pass: "Nitheesh23&", // Your email password or app password
+    },
+  });
+
+  const mailOptions = {
+    from: "krishnakumar.2201115@srec.ac.in", // Your email
+    to: patientEmail, // Recipient's email (patient's email)
+    subject: "Appointment Confirmation",
+    text: `Dear ${patientName},\n\nYour appointment with Dr. ${doctorName} is confirmed for ${appointmentDateTime}.\n\nThank you for using our service.\n\nBest regards,\nSri Ramakrishna Hospital`,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    res.status(200).json({ success: true, message: "Confirmation email sent successfully" });
+  } catch (error) {
+    console.error("Error sending email:", error);
+    res.status(500).json({ success: false, message: "Failed to send confirmation email." });
+  }
+});
+
 
 // Start Server
 app.listen(PORT, () =>

@@ -121,40 +121,45 @@
 
     // Handle the "Send Message" button click
     document.getElementById("send-message-btn").addEventListener("click", async function () {
-        const selectedDateTime = document.getElementById("appointment-time").value;
+    const selectedDateTime = document.getElementById("appointment-time").value;
 
-        if (selectedDateTime) {
-            // Create the notification details
-            const notificationData = {
-                doctorName: appointment.doctorName,
-                patientName: appointment.patientName,
-                patientEmail: appointment.patientEmail,
-                appointmentDateTime: selectedDateTime,
-                sentTime: new Date().toLocaleString()  // Current date-time of the message sent
-            };
+    if (selectedDateTime) {
+        // Create the notification details
+        const notificationData = {
+            doctorName: appointment.doctorName,
+            patientName: appointment.patientName,
+            patientEmail: appointment.patientEmail,
+            appointmentDateTime: selectedDateTime,
+            sentTime: new Date().toLocaleString()  // Current date-time of the message sent
+        };
 
-            // Store the notification data in localStorage
-            localStorage.setItem('notificationData', JSON.stringify(notificationData));
+        // Store the notification data in localStorage
+        localStorage.setItem('notificationData', JSON.stringify(notificationData));
 
-            // Sending the appointment confirmation to backend (email sending)
-            const response = await fetch('/api/sendConfirmationEmail', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(notificationData)
-            });
+        // Sending the appointment confirmation to backend (email sending)
+        const response = await fetch('/api/sendConfirmationEmail', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(notificationData)
+        });
 
-            const result = await response.json();
+        const result = await response.json();
 
-            if (result.success) {
-                // Redirect to the notification page
-                window.location.href = "notification1.html";
-            } else {
-                alert("Failed to send confirmation email. Please try again.");
-            }
+        if (result.success) {
+            // Show success message directly on the page
+            document.getElementById("confirmation-message").innerHTML = `
+                <div class="message">
+                    Your appointment with Dr. ${appointment.doctorName} has been confirmed for ${selectedDateTime}. A confirmation email has been sent to ${appointment.patientEmail}.
+                </div>
+            `;
         } else {
-            alert("Please select a date and time.");
+            alert("Failed to send confirmation email. Please try again.");
         }
-    });
+    } else {
+        alert("Please select a date and time.");
+    }
+});
+
 </script>
 
 

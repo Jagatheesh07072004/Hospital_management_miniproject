@@ -11,10 +11,12 @@
         display: flex;
         flex-direction: column;
         min-height: 100vh;
+        background-color: #cdddf3;
       }
 
+      /* Sidebar styles */
       .sidebar {
-        background-color: #007bff;
+        background-color: #89b6f4;
         color: white;
         width: 240px;
         position: fixed;
@@ -27,26 +29,35 @@
         text-align: center;
         margin-bottom: 20px;
         font-size: 20px;
-        color: rgb(12, 0, 0);
+        background: linear-gradient(to right, #3191f8, #0056b3);
+        padding: 10px;
+        border-radius: 8px;
+        color: white;
       }
 
       .sidebar a {
         color: rgb(46, 45, 45);
         text-decoration: none;
         display: block;
-        padding: 10px;
-        margin-bottom: 5px;
+        padding: 12px;
+        margin-bottom: 10px;
+        background: #4b7ef3;
+        border-radius: 8px;
         font-weight: bold;
         transition: background-color 0.3s;
       }
 
       .sidebar a:hover {
         background-color: #0056b3;
+        color: white;
       }
+
       .sidebar a:active {
         transform: scale(0.95);
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
       }
+
+      /* Main content styles */
       .main {
         margin-left: 260px;
         padding: 20px;
@@ -54,7 +65,7 @@
       }
 
       .welcome-box {
-        background-color: #007bff;
+        background: linear-gradient(to right, #0056b3, #007bff);
         color: white;
         text-align: center;
         padding: 20px;
@@ -65,7 +76,7 @@
 
       .welcome-box h1 {
         margin: 0;
-        font-size: 24px;
+        font-size: 28px;
       }
 
       .cards {
@@ -76,7 +87,7 @@
       }
 
       .card {
-        background-color: #987bd7;
+        background-color: #097df8;
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -90,6 +101,7 @@
         transform: scale(1.05); /* Slightly increase size */
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add a larger shadow */
       }
+
       .card h2 {
         margin: 0;
         font-size: 30px;
@@ -116,21 +128,12 @@
   </head>
   <body>
     <div class="sidebar">
-<<<<<<< HEAD
-        <h2>Sri Ramakrishna Admin</h2>
-        <a href="#">Dashboard</a>
-        <a href="srecappointlist.html">Appointments</a>
-        <a href="#">Medicine Inventory</a>
-        <a href="updatebed1.html">Bed Management</a>
-        <a href="index.html">Logout</a>
-=======
       <h2>Sri Ramakrishna Admin</h2>
       <a href="#">Dashboard</a>
-      <a href="#">Appointments</a>
+      <a href="srecappointlist.html">Appointments</a>
       <a href="medinv1.html">Medicine Inventory</a>
       <a href="updatebed1.html">Bed Management</a>
       <a href="index.html">Logout</a>
->>>>>>> aed97d35726519ddbe572c6b9ec83a9ee4e7c4d8
     </div>
 
     <div class="main">
