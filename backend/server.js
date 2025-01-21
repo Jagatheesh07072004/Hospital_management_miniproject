@@ -208,13 +208,13 @@ app.post("/api/notify", async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "krishnakumar.2201115@srec.ac.in", // Replace with your email
-        pass: "Nitheesh23&", // Replace with your email password or app password
+        user: "jagatheesh.2201104@srec.ac.in", // Replace with your email
+        pass: "Jaga4629", // Replace with your email password or app password
       },
     });
 
     const mailOptions = {
-      from: "krishnakumar.2201115@srec.ac.in", // Replace with your email
+      from: "jagatheesh.2201104@srec.ac.in", // Replace with your email
       to: medicine.supplierEmail, // Send to the supplier's email dynamically
       subject: "Low Stock Alert",
       text: `The stock for ${medicineName} is below 10. Please restock.`,
@@ -239,16 +239,16 @@ app.post("/api/sendConfirmationEmail", async (req, res) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",  // You can use any email service provider
     auth: {
-      user: "krishnakumar.2201115@srec.ac.in", // Your email here
-      pass: "Nitheesh23&", // Your email password or app password
+      user: "jagatheesh.2201104@srec.ac.in", // Your email here
+      pass: "Jaga4629", // Your email password or app password
     },
   });
 
   const mailOptions = {
-    from: "krishnakumar.2201115@srec.ac.in", // Your email
+    from: "jagatheesh.2201104@srec.ac.in", // Your email
     to: patientEmail, // Recipient's email (patient's email)
     subject: "Appointment Confirmation",
-    text: `Dear ${patientName},\n\nYour appointment with Dr. ${doctorName} is confirmed for ${appointmentDateTime}.\n\nThank you for using our service.\n\nBest regards,\nSri Ramakrishna Hospital`,
+    text: `Dear ${patientName},\n\nYour appointment with Dr. ${doctorName} is confirmed  ${appointmentDateTime}.\n\nThank you for using our service.\n\nBest regards,\nSri Ramakrishna Hospital`,
   };
 
   try {
