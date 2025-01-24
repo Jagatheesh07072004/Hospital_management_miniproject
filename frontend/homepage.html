@@ -1,277 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Search Hospitals in Coimbatore</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.css" rel="stylesheet">
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #e8f8f5;
-        color: #333;
-      }
-      .user-info {
-        position: absolute;
-        top: 50%;
-        right: 20px;
-        transform: translateY(-50%);
-        font-size: 14px;
-        text-align: right;
-      }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
-      .user-info span {
-        display: block;
-      }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
 
-      .user-info button {
-        margin-top: 5px;
-        padding: 5px 10px;
-        font-size: 14px;
-        background-color: #117a65;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
+        body {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            color: #2c3e50;
+        }
 
-      .user-info button:hover {
-        background-color: #0b5345;
-      }
+        header {
+            background: linear-gradient(135deg, #2196f3, #1976d2);
+            padding: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
 
-      .content {
-        padding: 20px;
-      }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-      .search-bar {
-        margin-bottom: 20px;
-        text-align: center;
-      }
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #fff;
+            animation: pulse 2s infinite;
+        }
 
-      .search-bar input {
-        width: 60%;
-        padding: 10px;
-        border: 1px solid #5dade2;
-        border-radius: 5px;
-      }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
 
-      .advice {
-        margin: 20px 0;
-        padding: 20px;
-        background-color: #d4efdf;
-        border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      }
+        .header-title {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
 
-      .hospital-box {
-        display: flex;
-        align-items: center;
-        background-color: #aed6f1;
-        border-radius: 8px;
-        margin-bottom: 15px;
-        padding: 15px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        position: relative;
-      }
+        .user-info {
+            background: rgba(254, 253, 253, 0.1);
+            padding: 0.8rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
 
-      .hospital-box img {
-        width: 80px;
-        height: 80px;
-        border-radius: 8px;
-        object-fit: cover;
-        margin-right: 15px;
-      }
+        .user-info button {
+            background: #fff;
+            color: #1976d2;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
 
-      .hospital-details {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-      }
+        .user-info button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
 
-      .hospital-details h3 {
-        margin: 0;
-        color: #117a65;
-      }
+        .content {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
 
-      .hospital-details p {
-        margin: 5px 0;
-        color: #555;
-      }
+        .search-bar {
+            margin: 2rem 0;
+            text-align: center;
+        }
 
-      .hospital-details a {
-        color: #0b5345;
-        font-weight: bold;
-        text-decoration: none;
-        margin-top: 5px;
-      }
+        .search-bar input {
+            width: 60%;
+            padding: 1rem;
+            border: 2px solid #90caf9;
+            border-radius: 50px;
+            font-size: 1rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
 
-      .hospital-details a:hover {
-        text-decoration: underline;
-      }
+        .search-bar input:focus {
+            outline: none;
+            border-color: #2196f3;
+            width: 65%;
+            box-shadow: 0 2px 20px rgba(33,150,243,0.2);
+        }
 
-      .location-icon {
-        width: 30px;
-        height: 30px;
-        position: absolute;
-        right: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-        cursor: pointer;
-      }
+        .advice {
+            background: linear-gradient(135deg, #fff, #e3f2fd);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
 
-      footer {
-        background-color: #5dade2;
-        color: white;
-        text-align: center;
-        padding: 10px 0;
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-      }
-      header {
-  background-color: #5dade2;
-  color: white;
-  padding: 20px;
-  text-align: center;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+        .advice:hover {
+            transform: translateY(-5px);
+        }
 
+        .hospital-box {
+            background: white;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
 
-header {
-  background-color: #5dade2;
-  color: white;
-  padding: 30px 20px; /* Increased top and bottom padding */
-  text-align: center;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100px; /* You can adjust this value for a fixed height */
-}
+        .hospital-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(33,150,243,0.2);
+        }
 
-header .logo {
-  position: absolute;
-  top: 50%;
-  left: 20px;
-  transform: translateY(-50%);
-  width: 129px; /* Adjust to make it larger */
-  height: 120px; /* Adjust to make it larger */
-  object-fit: contain;
-  border-radius: 100px; /* Ensures the logo scales proportionally */
-}
+        .hospital-box img {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
 
+        .hospital-details {
+            flex: 1;
+        }
 
-header h1 {
-  margin: 0;
-  font-size: 28px; /* Increased font size for better scaling */
-  flex: 1;
-  text-align: center;
-}
+        .hospital-details h3 {
+            color: #1976d2;
+            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
+        }
 
+        .hospital-details p {
+            color: #546e7a;
+            margin: 0.3rem 0;
+        }
 
+        .hospital-details a {
+            display: inline-block;
+            background: #2196f3;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            margin-top: 0.8rem;
+            transition: all 0.3s ease;
+        }
 
+        .hospital-details a:hover {
+            background: #1976d2;
+            transform: translateX(5px);
+        }
+
+        .location-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #1976d2;
+            font-size: 1.5rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .location-btn:hover {
+            color: #2196f3;
+            transform: scale(1.2);
+            background: #e3f2fd;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #1976d2, #2196f3);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .search-bar input {
+                width: 90%;
+            }
+
+            .hospital-box {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .location-btn {
+                margin-top: 1rem;
+            }
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <header>
-      <img src="images/medlogo.png" alt="Webpage Logo" class="logo" />
-      <h1>Search Hospitals in Coimbatore</h1>
-      <div class="user-info">
-        <span id="userEmail">Welcome, Guest</span>
-        <button onclick="viewProfile()">View Profile</button>
-      </div>
+        <div class="header-content">
+            <img src="images/logo1.webp" alt="Webpage Logo" class="logo" />
+            <h1 class="header-title">Search Hospitals in Coimbatore</h1>
+            <div class="user-info">
+                <span id="userEmail" style="color:white">Welcome, Guest</span>
+                <!--<button onclick="viewProfile()">View Profile</button>-->
+            </div>
+        </div>
     </header>
-    
+
     <div class="content">
-      <div class="search-bar">
-        <input
-          type="text"
-          id="searchInput"
-          placeholder="Search hospitals by name..."
-          onkeyup="filterHospitals()"
-        />
-      </div>
-
-      <div class="advice">
-        <h2>Find the Perfect Care: Your One-Stop Hospital Search & Booking Hub</h2>
-        <p>
-          Discover top hospitals near you, check visiting hours, explore
-          specialists, track real-time bed availability, and book appointments
-          with trusted doctors—all in one seamless platform. Your health, your
-          choice, made simple.
-        </p>
-      </div>
-
-      <div id="hospitalList">
-        <div class="hospital-box">
-          <img src="images/srecmini.png" alt="Sri Ramakrishna Hospital" />
-          <div class="hospital-details">
-            <h3>Sri Ramakrishna Hospital</h3>
-            <p>Address: 395 Sarojini Naidu Rd, Coimbatore</p>
-            <p>Phone: +91 422 450 4500</p>
-            <a href="userpage.html" target="_blank">Visit</a>
-          </div>
-          <img
-            class="location-icon"
-            src="images/locationicon.png"
-            alt="Location"
-            onclick="openGoogleMaps('Sri Ramakrishna Hospital, Coimbatore')"
-          />
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search hospitals by name..." onkeyup="filterHospitals()" />
         </div>
-        <div class="hospital-box">
-          <img src="images/psgmini.png" alt="PSG Hospital" />
-          <div class="hospital-details">
-            <h3>PSG Hospital</h3>
-            <p>Address: Peelamedu, Coimbatore</p>
-            <p>Phone: +91 422 257 0170</p>
-            <a href="psguserpage.html" target="_blank">Visit</a>
-          </div>
-          <img
-            class="location-icon"
-            src="images/locationicon.png"
-            alt="Location"
-            onclick="openGoogleMaps('PSG Hospital, Coimbatore')"
-          />
+
+        <div class="advice">
+            <h2>Find the Perfect Care: Your One-Stop Hospital Search & Booking Hub</h2>
+            <p>Discover top hospitals near you, check visiting hours, explore specialists, track real-time bed availability, and book appointments with trusted doctors—all in one seamless platform. Your health, your choice, made simple.</p>
         </div>
-        <!-- Add more hospitals in the same format -->
-      </div>
+
+        <div id="hospitalList">
+            <div class="hospital-box">
+                <img src="images/srecmini.png" alt="Sri Ramakrishna Hospital" />
+                <div class="hospital-details">
+                    <h3>Sri Ramakrishna Hospital</h3>
+                    <p>Address: 395 Sarojini Naidu Rd, Coimbatore</p>
+                    <p>Phone: +91 422 450 4500</p>
+                    <a href="userpage.html">Visit</a>
+                </div>
+                <button class="location-btn" onclick="openGoogleMaps('Sri Ramakrishna Hospital, Coimbatore')">
+                    <i class="fas fa-map-marker-alt"></i>
+                </button>
+            </div>
+
+            <div class="hospital-box">
+                <img src="images/psgmini.png" alt="PSG Hospital" />
+                <div class="hospital-details">
+                    <h3>PSG Hospital</h3>
+                    <p>Address: Peelamedu, Coimbatore</p>
+                    <p>Phone: +91 422 257 0170</p>
+                    <a href="psguserpage.html">Visit</a>
+                </div>
+                <button class="location-btn" onclick="openGoogleMaps('PSG Hospital, Coimbatore')">
+                    <i class="fas fa-map-marker-alt"></i>
+                </button>
+            </div>
+        </div>
     </div>
+
     <footer>
-      &copy; 2025 Search Hospitals in Coimbatore. All Rights Reserved.
+        &copy; 2025 Search Hospitals in Coimbatore. All Rights Reserved.
     </footer>
 
     <script>
-      const userEmail = localStorage.getItem("userEmail") || "guest@example.com";
-      document.getElementById("userEmail").textContent = `Welcome, ${userEmail}`;
+        const userEmail = localStorage.getItem("userEmail") || "guest@example.com";
+        document.getElementById("userEmail").textContent = `Welcome, ${userEmail}`;
 
-      function viewProfile() {
-        window.location.href = "profile.html";
-      }
+        function viewProfile() {
+            window.location.href = "profile.html";
+        }
 
-      function filterHospitals() {
-        const input = document.getElementById("searchInput").value.toLowerCase();
-        const hospitalBoxes = document.querySelectorAll(".hospital-box");
+        function filterHospitals() {
+            const input = document.getElementById("searchInput").value.toLowerCase();
+            const hospitalBoxes = document.querySelectorAll(".hospital-box");
 
-        hospitalBoxes.forEach((box) => {
-          const name = box.querySelector("h3").textContent.toLowerCase();
-          if (name.includes(input)) {
-            box.style.display = "flex";
-          } else {
-            box.style.display = "none";
-          }
-        });
-      }
+            hospitalBoxes.forEach((box) => {
+                const name = box.querySelector("h3").textContent.toLowerCase();
+                if (name.includes(input)) {
+                    box.style.display = "flex";
+                } else {
+                    box.style.display = "none";
+                }
+            });
+        }
 
-      function openGoogleMaps(location) {
-        const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-          location
-        )}`;
-        window.open(url, "_blank");
-      }
+        function openGoogleMaps(location) {
+            const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`;
+            window.open(url, "_blank");
+        }
     </script>
-  </body>
+</body>
 </html>

@@ -4,92 +4,186 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hospital Bed Availability</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary-blue: #1a4f8b;
+            --secondary-blue: #3474c5;
+            --light-blue: #e8f1ff;
+            --accent-blue: #0a2d52;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom, #e3f2fd, #bbdefb);
+            background: linear-gradient(135deg, var(--light-blue), #ffffff);
             color: #333;
+            min-height: 100vh;
         }
 
         header {
-            background-color: #0047ab;
+            background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue));
             color: white;
             padding: 20px;
             text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            animation: fadeInDown 0.8s ease-out;
         }
 
         header h1 {
             margin: 0;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.2em;
+            opacity: 0.9;
         }
 
         .container {
             padding: 20px;
             max-width: 800px;
             margin: 20px auto;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            animation: slideUp 0.8s ease-out;
         }
 
         .ward {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px;
-            border-bottom: 1px solid #ddd;
+            padding: 20px;
+            margin: 15px 0;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeIn 0.6s ease-out;
         }
 
-        .ward:last-child {
-            border-bottom: none;
+        .ward:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
         }
 
         .ward h3 {
             margin: 0;
             font-size: 20px;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .ward .bed-count {
-            font-size: 18px;
+            font-size: 24px;
             font-weight: bold;
-            color: #0047ab;
+            color: var(--secondary-blue);
+            background: var(--light-blue);
+            padding: 10px 20px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .ward:hover .bed-count {
+            transform: scale(1.1);
         }
 
         .total {
             text-align: center;
-            margin: 20px 0;
-            font-size: 24px;
-            color: #0047ab;
+            margin: 30px 0;
+            font-size: 28px;
+            color: var(--primary-blue);
             font-weight: bold;
+            padding: 20px;
+            border-radius: 10px;
+            background: var(--light-blue);
+            animation: pulse 2s infinite;
         }
 
         .button-container {
             text-align: center;
-            margin: 20px 0;
+            margin: 30px 0;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
         }
 
         .button-container a {
-            display: inline-block;
-            background: #ff5c5c;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(to right, var(--secondary-blue), var(--primary-blue));
             color: white;
             text-decoration: none;
             padding: 15px 30px;
             font-size: 18px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
         }
 
         .button-container a:hover {
-            background: #d04c4c;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            background: linear-gradient(to right, var(--primary-blue), var(--accent-blue));
         }
 
         footer {
-            background-color: #0047ab;
+            background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue));
             color: white;
             text-align: center;
-            padding: 10px 0;
-            margin-top: 20px;
+            padding: 15px 0;
+            margin-top: 40px;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(52, 116, 197, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(52, 116, 197, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(52, 116, 197, 0);
+            }
         }
     </style>
     <script>
@@ -103,20 +197,15 @@
         }
 
         window.onload = function () {
-            // Retrieve bed availability data from localStorage
             const bedData = JSON.parse(localStorage.getItem('bedAvailability'));
 
             if (bedData) {
-                // Update the bed count for each ward dynamically
                 document.querySelector('.general .bed-count').textContent = bedData['General Ward'] || 0;
                 document.querySelector('.icu .bed-count').textContent = bedData['ICU'] || 0;
                 document.querySelector('.private .bed-count').textContent = bedData['Private Ward'] || 0;
                 document.querySelector('.emergency .bed-count').textContent = bedData['Emergency Ward'] || 0;
-
-                // Recalculate total
                 calculateTotal();
             } else {
-                // If no data is available, show a default message
                 document.getElementById('totalBeds').textContent = "Total Beds Available: 0";
             }
         };
@@ -130,26 +219,26 @@
 
     <div class="container">
         <div class="ward general">
-            <h3>General Ward</h3>
+            <h3><i class="fas fa-procedures"></i> General Ward</h3>
             <span class="bed-count">50</span>
         </div>
         <div class="ward icu">
-            <h3>ICU</h3>
+            <h3><i class="fas fa-heartbeat"></i> ICU</h3>
             <span class="bed-count">10</span>
         </div>
         <div class="ward private">
-            <h3>Private Ward</h3>
+            <h3><i class="fas fa-bed"></i> Private Ward</h3>
             <span class="bed-count">20</span>
         </div>
         <div class="ward emergency">
-            <h3>Emergency Ward</h3>
+            <h3><i class="fas fa-ambulance"></i> Emergency Ward</h3>
             <span class="bed-count">5</span>
         </div>
 
         <div id="totalBeds" class="total">Total Beds Available: 0</div>
 
         <div class="button-container">
-            <a href="ramakrishna_appointment.html">Book Appointment</a>
+            <a href="ramakrishna_appointment.html"><i class="fas fa-calendar-alt"></i> Book Appointment</a>
         </div>
     </div>
 

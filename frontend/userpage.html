@@ -4,53 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sri Ramakrishna Hospital</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary-blue: #1a4f8b;
+            --secondary-blue: #3474c5;
+            --light-blue: #e8f1ff;
+            --accent-blue: #0a2d52;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom, #f5f7fa, #c3cfe2);
+            background: linear-gradient(135deg, var(--light-blue), #ffffff);
             color: #333;
         }
 
         header {
-            background-color: #0047ab;
+            background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue));
             color: white;
             padding: 20px 10px;
             text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            animation: fadeInDown 0.8s ease-out;
         }
 
         header h1 {
             margin: 0;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         header p {
             margin: 5px 0 0;
             font-size: 18px;
-        }
-
-        footer {
-            background-color: #0047ab;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
+            opacity: 0.9;
         }
 
         .container {
             padding: 20px;
             text-align: center;
         }
-       
+
         .intro {
             margin: 20px auto;
             max-width: 400px;
             line-height: 1.6;
-            background: rgb(167, 163, 218);
+            background: rgba(99, 124, 183, 0.9);
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             max-width: 50%;
-            flex-direction: column;
+            animation: fadeIn 0.8s ease-out;
         }
 
         .specialists {
@@ -58,63 +64,115 @@
             flex-direction: column;
             gap: 30px;
             margin: 20px auto;
-            max-width:100%;
+            max-width: 100%;
         }
-        .view img{
+
+        .view img {
             width: 1200px;
             height: 390px;
             margin-right: 40px;
             margin-left: 45px;
             max-width: 1750px;
             max-height: 350px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
         }
 
+        .view img:hover {
+            transform: scale(1.01);
+        }
+
+        .specialist {
+            position: relative;
+            overflow: hidden;
+        }
 
         .specialist img {
             width: 1100px;
             height: 350px;
             margin-right: 20px;
             margin-inline: 20px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .specialist img:hover {
+            transform: scale(1.02);
         }
 
         .specialist h3 {
-            margin: 0;
+            margin: 10px 0;
             font-size: 20px;
+            color: var(--primary-blue);
+            animation: fadeIn 0.8s ease-out;
         }
 
-        .large-image1 {
+        .large-image1, .large-image2 {
             width: 100%;
             max-width: 1400px;
             max-height: 550px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
         }
-        .large-image2 {
-            width: 100%;
-            max-width: 1400px;
-            max-height: 550px;
+
+        .large-image1:hover, .large-image2:hover {
+            transform: scale(1.01);
         }
 
         .button-container {
             margin: 20px 0;
         }
-        .specialists
-        {
-            color: mediumblue;
-            font-size: large;
-        }
 
         .button-container a {
-            display: inline-block;
-            background: #ff5c5c;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(to right, var(--secondary-blue), var(--primary-blue));
             color: white;
             text-decoration: none;
             padding: 15px 30px;
             font-size: 18px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            margin: 10px;
         }
 
         .button-container a:hover {
-            background: #d04c4c;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            background: linear-gradient(to right, var(--primary-blue), var(--accent-blue));
+        }
+
+        footer {
+            background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
     </style>
 </head>
@@ -126,10 +184,12 @@
         <h1>Sri Ramakrishna Hospital</h1>
         <p>We Are The Best Hospital In Coimbatore</p>
     </header>
-         <div class="view">
-            <img src="images/hospitalbiew.png" alt="view">
-         </div>
-       <div class="container">
+
+    <div class="view">
+        <img src="images/hospitalbiew.png" alt="view">
+    </div>
+
+    <div class="container">
         <div class="intro">
             <h4>Specialists</h4>
         </div>
@@ -164,10 +224,8 @@
         <img class="large-image1" src="images/stats-srechospital.png" alt="Hospital Facilities">
 
         <div class="button-container">
-            <a href="bed1.html">Check Bed Availability</a>
-        </div>
-        <div class="button-container">
-            <a href="ramakrishna_appointment.html">Book appointment with your doctors</a>
+            <a href="bed1.html"><i class="fas fa-bed"></i> Check Bed Availability</a>
+            <a href="ramakrishna_appointment.html"><i class="fas fa-calendar-alt"></i> Book Appointment</a>
         </div>
     </div>
 

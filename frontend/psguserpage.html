@@ -3,54 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sri Ramakrishna Hospital</title>
+    <title>PSG Hospitals</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom, #f5f7fa, #c3cfe2);
-            color: #181818;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
         }
 
         header {
-            background-color: #872e33;
+            background: linear-gradient(135deg, #872e33 0%, #b44449 100%);
             color: white;
-            padding: 20px 10px;
+            padding: 2rem 1rem;
             text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         header h1 {
             margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         header p {
-            margin: 5px 0 0;
-            font-size: 18px;
-        }
-
-        footer {
-            background-color: #0047ab;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
+            margin: 1rem 0 0;
+            font-size: 1.2rem;
+            opacity: 0.9;
         }
 
         .container {
-            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .view img {
+            width: 1200px;
+            height: 390px;
+            margin: 0 auto;
+            display: block;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .view img:hover {
+            transform: scale(1.02);
+        }
+
+        .intro {
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin: 2rem auto;
+            max-width: 800px;
             text-align: center;
         }
-       
-        .intro {
-            margin: 20px auto;
-            max-width: 400px;
-            line-height: 1.6;
-            background: rgb(214, 105, 105);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 50%;
-            flex-direction: column;
+
+        .intro h4 {
+            color: #872e33;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
         }
 
         .specialists {
@@ -58,119 +84,167 @@
             flex-direction: column;
             gap: 30px;
             margin: 20px auto;
-            max-width:100%;
-        }
-        .view img{
-            width: 1200px;
-            height: 390px;
-            margin-right: 40px;
-            margin-left: 150px;
-            max-width: 1750px;
-            max-height: 350px;
         }
 
+        .specialist {
+            text-align: center;
+        }
 
         .specialist img {
             width: 1100px;
             height: 420px;
-            margin-right: 20px;
-            margin-inline: 20px;
+            margin: 0 auto;
+            display: block;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .specialist img:hover {
+            transform: scale(1.02);
         }
 
         .specialist h3 {
-            margin: 0;
-            font-size: 20px;
+            margin-top: 1rem;
+            font-size: 1.5rem;
+            color: #872e33;
         }
 
-        .large-image1 {
+        .large-image1, .large-image2 {
             width: 100%;
             max-width: 1400px;
             max-height: 550px;
+            border-radius: 15px;
+            margin: 2rem auto;
+            display: block;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
         }
-        .large-image2 {
-            width: 100%;
-            max-width: 1400px;
-            max-height: 550px;
+
+        .large-image1:hover, .large-image2:hover {
+            transform: scale(1.02);
         }
 
         .button-container {
-            margin: 20px 0;
-        }
-        .specialists
-        {
-            color: rgb(166, 52, 54);
-            font-size: large;
+            text-align: center;
+            margin: 2rem 0;
         }
 
         .button-container a {
             display: inline-block;
-            background: #ff5c5c;
+            background: linear-gradient(135deg, #ff5c5c 0%, #ff8080 100%);
             color: white;
             text-decoration: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .button-container a:hover {
-            background: #d04c4c;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.25);
+        }
+
+        footer {
+            background: linear-gradient(135deg, #0047ab 0%, #1a66cc 100%);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        footer p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1400px) {
+            .container { padding: 1rem; }
+            .view img, .specialist img {
+                width: 100%;
+                height: auto;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
+    <header class="animate-fade-in">
         <div class="new1">
             <img src="images/psg-hospital-title2.png" alt="title">
         </div>
-        <h1>Welcome to
-            PSG Hospitals</h1>
+        <h1>Welcome to PSG Hospitals</h1>
         <p>We Are The Best Hospital In Coimbatore</p>
     </header>
-         <div class="view">
+
+    <div class="container">
+        <div class="view" data-aos="fade-up">
             <img src="images/psgphotos.png" alt="view">
-         </div>
-       <div class="container">
-        <div class="intro">
+        </div>
+
+        <div class="intro" data-aos="fade-up">
             <h4>Specialists</h4>
         </div>
          
         <div class="specialists">
-            <div class="specialist">
+            <div class="specialist" data-aos="fade-up">
                 <img src="images/psg_specialist1.png" alt="Specialist 1">
                 <h3>Cardiologist</h3>
             </div>
-            <div class="specialist">
+            <div class="specialist" data-aos="fade-up">
                 <img src="images/psg_specialist2.png" alt="Specialist 2">
                 <h3>Neurologist</h3>
             </div>
-            <div class="specialist">
+            <div class="specialist" data-aos="fade-up">
                 <img src="images/psg_specialist3.png" alt="Specialist 3">
                 <h3>Orthopedic Surgeon</h3>
             </div>
-            <div class="specialist">
+            <div class="specialist" data-aos="fade-up">
                 <img src="images/psg_specialist4.png" alt="Specialist 4">
                 <h3>Pediatrician</h3>
             </div>
         </div>
 
-        <img class="large-image2" src="images/srechospital-look.png" alt="Hospital View">
+        <img class="large-image2" data-aos="fade-up" src="images/srechospital-look.png" alt="Hospital View">
 
-        <div class="intro">
+        <div class="intro" data-aos="fade-up">
             <h2>Core Values</h2>
             <p>We uphold integrity, compassion, and excellence in all our endeavors. Our commitment to innovation and continuous improvement drives us to be a leader in the healthcare industry.</p>
             <p>Join us in building a healthier community where every individual thrives. Together, we create a legacy of care that extends beyond boundaries.</p>
         </div>
 
-        <img class="large-image1" src="images/stats-psg_hospitals.png" alt="Hospital Facilities">
+        <img class="large-image1" data-aos="fade-up" src="images/stats-psg_hospitals.png" alt="Hospital Facilities">
 
-        <div class="button-container">
+        <div class="button-container" data-aos="fade-up">
             <a href="bed2.html">Check Bed Availability</a>
         </div>
     </div>
 
     <footer>
-        <p>Sri Ramakrishna Hospital | Address: Coimbatore, Tamil Nadu, India | Phone: +91-1234567890 | Email: info@sriramakrishnahospital.com</p>
+        <p>PSG Hospitals | Address: Coimbatore, Tamil Nadu, India | Phone: +91-1234567890 | Email: info@psghospitals.com</p>
     </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            offset: 100,
+            once: true
+        });
+    </script>
 </body>
 </html>

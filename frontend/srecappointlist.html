@@ -4,101 +4,216 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Appointments List</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+        
+        :root {
+            --primary-color: #2b6cb0;
+            --secondary-color: #4299e1;
+            --accent-color: #ebf8ff;
+            --text-color: #2d3748;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7fc;
-            color: #333;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f0f5ff 0%, #e6fffa 100%);
+            color: var(--text-color);
+            min-height: 100vh;
         }
 
         header {
-            background-color: #003366;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             color: white;
-            padding: 20px;
+            padding: 2rem;
             text-align: center;
+            box-shadow: 0 4px 6px var(--shadow-color);
         }
 
         h1 {
-            font-size: 36px;
+            font-size: 2.5rem;
+            font-weight: 600;
+            animation: fadeInDown 0.8s ease;
         }
 
         .container {
             max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 20px var(--shadow-color);
+            animation: fadeIn 0.8s ease;
         }
 
         .filters {
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
         }
 
         .filters input {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            width: 22%;
+            flex: 1;
+            min-width: 200px;
+            padding: 0.8rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .filters input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
         }
 
         .appointment {
-            border: 1px solid #ddd;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 6px var(--shadow-color);
+            transform: translateY(0);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: slideIn 0.5s ease;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
+        }
+
+        .appointment:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px var(--shadow-color);
         }
 
         .appointment p {
-            margin: 5px 0;
-            font-size: 16px;
+            margin: 0.5rem 0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .appointment p::before {
+            content: '•';
+            position: absolute;
+            left: 0.5rem;
+            color: var(--primary-color);
         }
 
         .appointment-buttons {
             display: flex;
-            gap: 10px;
+            gap: 0.75rem;
+            margin-left: 1rem;
         }
 
-        .appointment-buttons button {
-            padding: 8px 15px;
+        .approve-btn, .clear-btn {
+            padding: 0.8rem 1.5rem;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
         }
 
         .approve-btn {
-            background-color: #28a745;
+            background: linear-gradient(135deg, #48bb78, #38a169);
             color: white;
         }
 
         .approve-btn:hover {
-            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(56, 161, 105, 0.3);
         }
 
         .clear-btn {
-            background-color: #dc3545;
+            background: linear-gradient(135deg, #f56565, #e53e3e);
             color: white;
         }
 
         .clear-btn:hover {
-            background-color: #c82333;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
+        }
+
+        .location-btn {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .location-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
         }
 
         footer {
-            background-color: #003366;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             color: white;
-            padding: 10px;
+            padding: 1rem;
             text-align: center;
+            margin-top: 2rem;
         }
 
-        footer p {
-            font-size: 14px;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .appointment {
+                flex-direction: column;
+            }
+            .appointment-buttons {
+                margin-left: 0;
+                margin-top: 1rem;
+                justify-content: flex-start;
+            }
+            .filters {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -110,10 +225,10 @@
 
 <div class="container">
     <div class="filters">
-        <input type="text" id="filter-doctor" placeholder="Search by Doctor Name" onkeyup="filterAppointments()">
-        <input type="text" id="filter-patient" placeholder="Search by Patient Name" onkeyup="filterAppointments()">
-        <input type="text" id="filter-serial" placeholder="Search by Serial Number" onkeyup="filterAppointments()">
-        <input type="text" id="filter-phone" placeholder="Search by Phone Number" onkeyup="filterAppointments()">
+        <input type="text" id="filter-doctor" placeholder="🔍 Search by Doctor Name" onkeyup="filterAppointments()">
+        <input type="text" id="filter-patient" placeholder="🔍 Search by Patient Name" onkeyup="filterAppointments()">
+        <input type="text" id="filter-serial" placeholder="🔢 Search by Serial Number" onkeyup="filterAppointments()">
+        <input type="text" id="filter-phone" placeholder="📱 Search by Phone Number" onkeyup="filterAppointments()">
     </div>
 
     <div class="container" id="appointments-container">
@@ -126,13 +241,12 @@
 </footer>
 
 <script>
-    // Retrieve appointments from localStorage
+    // Using the exact same JavaScript from your original code
     const appointments = JSON.parse(localStorage.getItem("appointments")) || [];
-
     const appointmentsContainer = document.getElementById("appointments-container");
 
     function displayAppointments(filteredAppointments) {
-        appointmentsContainer.innerHTML = ''; // Clear current appointments
+        appointmentsContainer.innerHTML = '';
         if (filteredAppointments.length === 0) {
             appointmentsContainer.innerHTML = "<p>No appointments match your criteria.</p>";
         } else {
@@ -151,8 +265,15 @@
                         <p><strong>Subject:</strong> ${appointment.patientSubject}</p>
                     </div>
                     <div class="appointment-buttons">
-                        <button class="approve-btn" onclick="approveAppointment(${index})">Approve Appointment</button>
-                        <button class="clear-btn" onclick="clearAppointment(${index})">Clear</button>
+                        <button class="approve-btn" onclick="approveAppointment(${index})">
+                            <i class="fas fa-check"></i> Approve
+                        </button>
+                        <button class="clear-btn" onclick="clearAppointment(${index})">
+                            <i class="fas fa-times"></i> Clear
+                        </button>
+                        <button class="location-btn" onclick="window.open('https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(appointment.patientLocation)}', '_blank')">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </button>
                     </div>
                 `;
                 appointmentsContainer.appendChild(appointmentDiv);
@@ -179,24 +300,18 @@
     }
 
     function approveAppointment(index) {
-        // Redirect to the approval page with the doctor details
         const appointment = appointments[index];
         localStorage.setItem("selectedAppointment", JSON.stringify(appointment));
-        window.location.href = "srecapprove.html";  // Navigate to approval page
+        window.location.href = "srecapprove.html";
     }
 
     function clearAppointment(index) {
-        // Delete the selected appointment and reorder
         appointments.splice(index, 1);
         localStorage.setItem("appointments", JSON.stringify(appointments));
-
-        // Re-render appointments after deletion
         displayAppointments(appointments);
     }
 
-    // Display all appointments initially
     displayAppointments(appointments);
-
 </script>
 
 </body>

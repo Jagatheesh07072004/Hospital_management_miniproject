@@ -4,80 +4,256 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - Update Bed Availability</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        * {
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom, #f5f5f5, #dfe6e9);
-            color: #333;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%);
+            color: #2c5282;
+            line-height: 1.6;
+            min-height: 100vh;
         }
 
         header {
-            background-color: #2c3e50;
+            background: linear-gradient(90deg, #2c5282, #3182ce);
             color: white;
             text-align: center;
-            padding: 20px;
+            padding: 2rem;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.8s ease-out;
         }
 
         header h1 {
             margin: 0;
+            font-size: 2.2rem;
+            font-weight: 600;
+        }
+
+        .location-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .location-icon:hover {
+            transform: scale(1.1);
         }
 
         .container {
-            max-width: 600px;
-            margin: 20px auto;
+            max-width: 800px;
+            margin: 40px auto;
             background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-out;
         }
 
         .ward {
-            margin-bottom: 15px;
+            margin-bottom: 25px;
+            padding: 15px;
+            border-radius: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .ward:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
         .ward label {
             display: block;
-            font-size: 16px;
-            margin-bottom: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2d3748;
         }
 
         .ward input {
             width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            padding: 12px 15px;
+            font-size: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .ward input:focus {
+            outline: none;
+            border-color: #3182ce;
+            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.2);
+        }
+
+        .ward input::placeholder {
+            color: #a0aec0;
         }
 
         .button-container {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 30px;
+            animation: fadeIn 1.5s ease-out;
         }
 
         .button-container button {
-            background: #27ae60;
+            background: linear-gradient(90deg, #3182ce, #4299e1);
             color: white;
-            padding: 10px 20px;
-            font-size: 18px;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(49, 130, 206, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .button-container button:hover {
-            background: #219150;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(49, 130, 206, 0.3);
+            background: linear-gradient(90deg, #2c5282, #3182ce);
+        }
+
+        .button-container button:active {
+            transform: translateY(0);
+        }
+
+        .button-container button i {
+            font-size: 1.2rem;
         }
 
         footer {
-            background-color: #2c3e50;
+            background: linear-gradient(90deg, #2c5282, #3182ce);
             color: white;
             text-align: center;
-            padding: 10px 0;
-            margin-top: 20px;
+            padding: 1rem 0;
+            position: relative;
+            margin-top: auto;
+        }
+
+        footer p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Success Animation */
+        @keyframes successPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .success-icon {
+            display: none;
+            color: #48bb78;
+            font-size: 48px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: successPulse 0.5s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px;
+                padding: 1.5rem;
+            }
+
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .ward label {
+                font-size: 1rem;
+            }
+
+            .button-container button {
+                width: 100%;
+            }
         }
     </style>
+</head>
+<body>
+    <header>
+        <h1>Admin Panel - Update Bed Availability</h1>
+        <i class="fas fa-map-marker-alt location-icon" title="View Hospital Location"></i>
+    </header>
+
+    <div class="container">
+        <div class="ward">
+            <label for="general">
+                <i class="fas fa-bed"></i> General Ward
+            </label>
+            <input type="number" id="general" name="General Ward" placeholder="Enter number of beds">
+        </div>
+        <div class="ward">
+            <label for="icu">
+                <i class="fas fa-procedures"></i> ICU
+            </label>
+            <input type="number" id="icu" name="ICU" placeholder="Enter number of beds">
+        </div>
+        <div class="ward">
+            <label for="private">
+                <i class="fas fa-home"></i> Private Ward
+            </label>
+            <input type="number" id="private" name="Private Ward" placeholder="Enter number of beds">
+        </div>
+        <div class="ward">
+            <label for="emergency">
+                <i class="fas fa-ambulance"></i> Emergency Ward
+            </label>
+            <input type="number" id="emergency" name="Emergency Ward" placeholder="Enter number of beds">
+        </div>
+
+        <div class="button-container">
+            <button onclick="updateBedAvailability()">
+                <i class="fas fa-sync-alt"></i> Update Availability
+            </button>
+        </div>
+    </div>
+
+    <div class="success-icon">
+        <i class="fas fa-check-circle"></i>
+    </div>
+
+    <footer>
+        <p>Sri Ramakrishna Hospital | Admin Panel</p>
+    </footer>
+
     <script>
         function updateBedAvailability() {
             const wards = document.querySelectorAll('.ward input');
@@ -90,41 +266,15 @@
             // Store updated data in localStorage
             localStorage.setItem('bedAvailability', JSON.stringify(updatedData));
 
-            // Simulate a successful update
-            alert('Bed availability updated successfully!');
+            // Show success animation
+            const successIcon = document.querySelector('.success-icon');
+            successIcon.style.display = 'block';
+            
+            setTimeout(() => {
+                successIcon.style.display = 'none';
+                alert('Bed availability updated successfully!');
+            }, 1000);
         }
     </script>
-</head>
-<body>
-    <header>
-        <h1>Admin Panel - Update Bed Availability</h1>
-    </header>
-
-    <div class="container">
-        <div class="ward">
-            <label for="general">General Ward</label>
-            <input type="number" id="general" name="General Ward" placeholder="Enter number of beds">
-        </div>
-        <div class="ward">
-            <label for="icu">ICU</label>
-            <input type="number" id="icu" name="ICU" placeholder="Enter number of beds">
-        </div>
-        <div class="ward">
-            <label for="private">Private Ward</label>
-            <input type="number" id="private" name="Private Ward" placeholder="Enter number of beds">
-        </div>
-        <div class="ward">
-            <label for="emergency">Emergency Ward</label>
-            <input type="number" id="emergency" name="Emergency Ward" placeholder="Enter number of beds">
-        </div>
-
-        <div class="button-container">
-            <button onclick="updateBedAvailability()">Update</button>
-        </div>
-    </div>
-
-    <footer>
-        <p>Sri Ramakrishna Hospital | Admin Panel</p>
-    </footer>
 </body>
 </html>

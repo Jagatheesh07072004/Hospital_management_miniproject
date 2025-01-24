@@ -1,164 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sri Ramakrishna Admin Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-      body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        background-color: #cdddf3;
-      }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-      /* Sidebar styles */
-      .sidebar {
-        background-color: #89b6f4;
-        color: white;
-        width: 240px;
-        position: fixed;
-        height: 100%;
-        padding-top: 20px;
-        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-      }
+        :root {
+            --primary-blue: #1a73e8;
+            --secondary-blue: #4285f4;
+            --light-blue: #e8f0fe;
+            --dark-blue: #1557b0;
+            --accent-blue: #8ab4f8;
+        }
 
-      .sidebar h2 {
-        text-align: center;
-        margin-bottom: 20px;
-        font-size: 20px;
-        background: linear-gradient(to right, #3191f8, #0056b3);
-        padding: 10px;
-        border-radius: 8px;
-        color: white;
-      }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-      .sidebar a {
-        color: rgb(46, 45, 45);
-        text-decoration: none;
-        display: block;
-        padding: 12px;
-        margin-bottom: 10px;
-        background: #4b7ef3;
-        border-radius: 8px;
-        font-weight: bold;
-        transition: background-color 0.3s;
-      }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+        }
 
-      .sidebar a:hover {
-        background-color: #0056b3;
-        color: white;
-      }
+        /* Enhanced Sidebar */
+        .sidebar {
+            background: linear-gradient(180deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            width: 280px;
+            height: 100vh;
+            position: fixed;
+            padding: 2rem 1rem;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
 
-      .sidebar a:active {
-        transform: scale(0.95);
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-      }
+        .sidebar h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--accent-blue);
+        }
 
-      /* Main content styles */
-      .main {
-        margin-left: 260px;
-        padding: 20px;
-        flex-grow: 1;
-      }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            margin: 0.5rem 0;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
 
-      .welcome-box {
-        background: linear-gradient(to right, #0056b3, #007bff);
-        color: white;
-        text-align: center;
-        padding: 20px;
-        border-radius: 8px;
-        margin-bottom: 20px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      }
+        .sidebar a i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
 
-      .welcome-box h1 {
-        margin: 0;
-        font-size: 28px;
-      }
+        .sidebar a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
 
-      .cards {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-        justify-content: center;
-      }
+        /* Main Content */
+        .main {
+            margin-left: 280px;
+            padding: 2rem;
+            width: calc(100% - 280px);
+        }
 
-      .card {
-        background-color: #097df8;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        text-align: center;
-        height: 200px;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        cursor: pointer;
-      }
+        .welcome-box {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            animation: slideDown 0.5s ease-out;
+        }
 
-      .card:hover {
-        transform: scale(1.05); /* Slightly increase size */
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add a larger shadow */
-      }
+        .welcome-box h1 {
+            color: white;
+            font-size: 1.8rem;
+            text-align: center;
+            margin: 0;
+        }
 
-      .card h2 {
-        margin: 0;
-        font-size: 30px;
-        color: #0f141a;
-      }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
 
-      .card p {
-        margin: 10px 0 0;
-        font-size: 22px;
-        color: #030303;
-      }
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
 
-      footer {
-        background: linear-gradient(to right, #a1a1a1, #007bff);
-        color: white;
-        text-align: center;
-        padding: 10px 0;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-      }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue));
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .card h2 {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            color: #666;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .card i {
+            position: absolute;
+            right: 1.5rem;
+            top: 1.5rem;
+            font-size: 2rem;
+            color: var(--accent-blue);
+            opacity: 0.3;
+        }
+
+        footer {
+            background: linear-gradient(90deg, var(--dark-blue), var(--primary-blue));
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            left: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                width: 240px;
+            }
+            .main {
+                margin-left: 240px;
+                width: calc(100% - 240px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+            }
+            .sidebar h2, .sidebar a span {
+                display: none;
+            }
+            .sidebar a {
+                justify-content: center;
+                padding: 1rem;
+            }
+            .sidebar a i {
+                margin: 0;
+            }
+            .main {
+                margin-left: 70px;
+                width: calc(100% - 70px);
+            }
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="sidebar">
-      <h2>Sri Ramakrishna Admin</h2>
-      <a href="#">Dashboard</a>
-      <a href="srecappointlist.html">Appointments</a>
-      <a href="medinv1.html">Medicine Inventory</a>
-      <a href="updatebed1.html">Bed Management</a>
-      <a href="index.html">Logout</a>
+        <h2>Sri Ramakrishna Admin</h2>
+        <a href="#" data-aos="fade-right" data-aos-delay="100">
+            <i class="fas fa-chart-line"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="srecappointlist.html" data-aos="fade-right" data-aos-delay="200">
+            <i class="fas fa-calendar-check"></i>
+            <span>Appointments</span>
+        </a>
+        <a href="medinv1.html" data-aos="fade-right" data-aos-delay="300">
+            <i class="fas fa-pills"></i>
+            <span>Medicine Inventory</span>
+        </a>
+        <a href="updatebed1.html" data-aos="fade-right" data-aos-delay="400">
+            <i class="fas fa-bed"></i>
+            <span>Bed Management</span>
+        </a>
+        <a href="index.html" data-aos="fade-right" data-aos-delay="500">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </a>
     </div>
 
     <div class="main">
-      <div class="welcome-box">
-        <h1>Welcome to Sri Ramakrishna Admin Dashboard</h1>
-      </div>
-      <div class="cards">
-        <div class="card">
-          <h2>150</h2>
-          <p>Appointments</p>
+        <div class="welcome-box" data-aos="fade-down">
+            <h1>Welcome to Sri Ramakrishna Admin Dashboard</h1>
         </div>
-        <div class="card">
-          <h2>50</h2>
-          <p>New Patients</p>
+        <div class="cards">
+            <div class="card" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-calendar-alt"></i>
+                <h2>150</h2>
+                <p>Appointments</p>
+            </div>
+            <div class="card" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-user-plus"></i>
+                <h2>50</h2>
+                <p>New Patients</p>
+            </div>
+            <div class="card" data-aos="fade-up" data-aos-delay="300">
+                <i class="fas fa-capsules"></i>
+                <h2>200</h2>
+                <p>Medicines Sold</p>
+            </div>
+            <div class="card" data-aos="fade-up" data-aos-delay="400">
+                <i class="fas fa-flask"></i>
+                <h2>80</h2>
+                <p>Lab Tests</p>
+            </div>
         </div>
-        <div class="card">
-          <h2>200</h2>
-          <p>Medicines Sold</p>
-        </div>
-        <div class="card">
-          <h2>80</h2>
-          <p>Lab Tests</p>
-        </div>
-      </div>
     </div>
+
     <footer>&copy; 2025 Sri Ramakrishna Hospital. All Rights Reserved.</footer>
-  </body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+    </script>
+</body>
 </html>

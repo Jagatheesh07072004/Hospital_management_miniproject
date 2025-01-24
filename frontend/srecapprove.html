@@ -4,76 +4,196 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Appointment Confirmation</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+        
+        :root {
+            --primary-color: #2b6cb0;
+            --secondary-color: #4299e1;
+            --accent-color: #ebf8ff;
+            --success-color: #48bb78;
+            --text-color: #2d3748;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7fc;
-            color: #333;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f0f5ff 0%, #e6fffa 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            line-height: 1.6;
         }
 
         header {
-            background-color: #003366;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             color: white;
-            padding: 20px;
+            padding: 2rem;
             text-align: center;
+            box-shadow: 0 4px 6px var(--shadow-color);
         }
 
         h1 {
-            font-size: 36px;
+            font-size: 2.5rem;
+            font-weight: 600;
+            animation: fadeInDown 0.8s ease;
         }
 
         .container {
             max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 20px var(--shadow-color);
+            animation: fadeIn 0.8s ease;
         }
 
         .confirmation-box {
-            border: 1px solid #ddd;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .confirmation-box label,
+        .confirmation-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px var(--shadow-color);
+        }
+
         .confirmation-box p {
-            margin: 5px 0;
-            font-size: 16px;
+            margin: 1rem 0;
+            font-size: 1rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .confirmation-box p::before {
+            content: '•';
+            position: absolute;
+            left: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .confirmation-box label {
+            display: block;
+            margin: 1.5rem 0 0.5rem;
+            font-weight: 500;
+            color: var(--primary-color);
         }
 
         .confirmation-box input[type="datetime-local"] {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
             width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
         }
 
-        .confirmation-box button {
-            padding: 10px 20px;
-            background-color: #003366;
+        .confirmation-box input[type="datetime-local"]:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+        }
+
+        #send-message-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .confirmation-box button:hover {
-            background-color: #0056b3;
+        #send-message-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
+        }
+
+        #send-message-btn:active {
+            transform: translateY(0);
+        }
+
+        .success-message {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #def7ec 0%, #d1fae5 100%);
+            border: 1px solid var(--success-color);
+            color: #046c4e;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            animation: slideIn 0.5s ease;
+        }
+
+        .success-message .tick {
+            font-size: 1.5rem;
+            color: var(--success-color);
         }
 
         footer {
-            background-color: #003366;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             color: white;
-            padding: 10px;
+            padding: 1rem;
             text-align: center;
+            margin-top: 2rem;
         }
 
-        footer p {
-            font-size: 14px;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                padding: 1rem;
+            }
+            
+            .confirmation-box {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -84,7 +204,7 @@
 </header>
 
 <div class="container" id="appointment-container">
-    <!-- This container will display the appointment details and confirmation form -->
+    <!-- This container will be populated by JavaScript -->
 </div>
 
 <footer>
@@ -92,16 +212,14 @@
 </footer>
 
 <script>
-    // Retrieve the selected appointment from localStorage
+    // Keep the original JavaScript exactly as is
     const appointment = JSON.parse(localStorage.getItem("selectedAppointment"));
 
-    // Check if appointment data exists
     if (!appointment) {
         alert("No appointment data found!");
-        window.location.href = "srecappointlist.html"; // Redirect back to appointment list if no data
+        window.location.href = "srecappointlist.html";
     }
 
-    // Create the confirmation box for appointment details
     const container = document.getElementById("appointment-container");
     const confirmationBox = document.createElement("div");
     confirmationBox.className = "confirmation-box";
@@ -114,54 +232,54 @@
         <label for="appointment-time">Select Date and Time:</label>
         <input type="datetime-local" id="appointment-time" required>
 
-        <button id="send-message-btn">Send Message</button>
+        <button id="send-message-btn">
+            <i class="fas fa-paper-plane"></i> Send Message
+        </button>
+        <div id="confirmation-message"></div>
     `;
 
     container.appendChild(confirmationBox);
 
-    // Handle the "Send Message" button click
     document.getElementById("send-message-btn").addEventListener("click", async function () {
-    const selectedDateTime = document.getElementById("appointment-time").value;
+        const selectedDateTime = document.getElementById("appointment-time").value;
 
-    if (selectedDateTime) {
-        // Create the notification details
-        const notificationData = {
-            doctorName: appointment.doctorName,
-            patientName: appointment.patientName,
-            patientEmail: appointment.patientEmail,
-            appointmentDateTime: selectedDateTime,
-            sentTime: new Date().toLocaleString()  // Current date-time of the message sent
-        };
+        if (selectedDateTime) {
+            const notificationData = {
+                doctorName: appointment.doctorName,
+                patientName: appointment.patientName,
+                patientEmail: appointment.patientEmail,
+                appointmentDateTime: selectedDateTime,
+                sentTime: new Date().toLocaleString()
+            };
 
-        // Store the notification data in localStorage
-        localStorage.setItem('notificationData', JSON.stringify(notificationData));
+            localStorage.setItem('notificationData', JSON.stringify(notificationData));
 
-        // Sending the appointment confirmation to backend (email sending)
-        const response = await fetch('/api/sendConfirmationEmail', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(notificationData)
-        });
+            const response = await fetch('/api/sendConfirmationEmail', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(notificationData)
+            });
 
-        const result = await response.json();
+            const result = await response.json();
 
-        if (result.success) {
-            // Show success message directly on the page
-            document.getElementById("confirmation-message").innerHTML = `
-                <div class="message">
-                    Your appointment with Dr. ${appointment.doctorName} has been confirmed for ${selectedDateTime}. A confirmation email has been sent to ${appointment.patientEmail}.
-                </div>
-            `;
+            const confirmationMessage = document.getElementById("confirmation-message");
+            confirmationMessage.innerHTML = "";
+
+            if (result.success) {
+                confirmationMessage.innerHTML = `
+                    <div class="success-message">
+                        <span class="tick"><i class="fas fa-check-circle"></i></span>
+                        Message sent successfully! For the patient ${appointment.patientName} with the doctor ${appointment.doctorName}.
+                    </div>
+                `;
+            } else {
+                alert("Failed to send confirmation email. Please try again.");
+            }
         } else {
-            alert("Failed to send confirmation email. Please try again.");
+            alert("Please select a date and time.");
         }
-    } else {
-        alert("Please select a date and time.");
-    }
-});
-
+    });
 </script>
-
 
 </body>
 </html>
