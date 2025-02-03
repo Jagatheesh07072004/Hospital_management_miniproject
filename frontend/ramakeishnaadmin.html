@@ -242,7 +242,7 @@
             </div>
             <div class="card" data-aos="fade-up" data-aos-delay="200">
                 <i class="fas fa-user-plus"></i>
-                <h2>50</h2>
+                <h2 id="new-patients-count">50</h2>
                 <p>New Patients</p>
             </div>
             <div class="card" data-aos="fade-up" data-aos-delay="300">
@@ -266,6 +266,12 @@
             duration: 800,
             once: true
         });
+        const lastSerialNumber = localStorage.getItem("lastSerialNumber");
+
+// Check if the last serial number exists and update the card
+if (lastSerialNumber) {
+    document.getElementById("new-patients-count").textContent = lastSerialNumber;
+}
     </script>
 </body>
 </html>

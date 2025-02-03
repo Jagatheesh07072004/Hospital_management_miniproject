@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const nodemailer = require("nodemailer");
 const cors = require("cors");  // Added CORS for cross-origin requests
 const app = express();
-const PORT = 3001;
+const PORT = 3002;
 
 // Middleware
 app.use(express.json());
@@ -202,35 +202,39 @@ app.post("/api/update-inventory", async (req, res) => {
 // Notify Low Stock API
 app.post("/api/notify", async (req, res) => {
   const { medicineName } = req.body;
-  const medicine = await Medicine.findOne({ name: medicineName });
+  try {
+    // Find the medicine by name
+    const medicine = await Medicine.findOne({ name: medicineName });
 
-  if (medicine && medicine.supplierEmail) {
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: "jagatheesh.2201104@srec.ac.in", // Replace with your email
-        pass: "Jaga4629", // Replace with your email password or app password
-      },
-    });
+    // Check if medicine exists and stock is below the threshold
+    if (medicine && medicine.quantity < 10) {
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "jagatheesh.2201104@srec.ac.in", // Replace with your email
+          pass: "Jaga4629", // Replace with your email password or app password
+        },
+      });
 
-    const mailOptions = {
-      from: "jagatheesh.2201104@srec.ac.in", // Replace with your email
-      to: medicine.supplierEmail, // Send to the supplier's email dynamically
-      subject: "Low Stock Alert",
-      text: `The stock for ${medicineName} is below 10. Please restock.`,
-    };
+      const mailOptions = {
+        from: "jagatheesh.2201104@srec.ac.in", // Your email
+        to: "jagatheesh.2201104@srec.ac.in", // Admin email for low-stock alerts
+        subject: "Low Stock Alert",
+        text: `The stock for ${medicine.name} is critically low (current stock: ${medicine.quantity}). Please restock immediately.`,
+      };
 
-    try {
+      // Send email
       await transporter.sendMail(mailOptions);
       res.status(200).json({ message: "Notification sent successfully." });
-    } catch (error) {
-      console.error("Error sending email:", error);
-      res.status(500).json({ message: "Failed to send notification." });
+    } else {
+      res.status(404).json({ message: "Medicine not found or sufficient stock available." });
     }
-  } else {
-    res.status(404).json({ message: "Medicine or supplier email not found." });
+  } catch (error) {
+    console.error("Error in /api/notify:", error);
+    res.status(500).json({ message: "Failed to send notification." });
   }
 });
+
 
 app.post("/api/sendConfirmationEmail", async (req, res) => {
   const { doctorName, patientName, patientEmail, appointmentDateTime } = req.body;

@@ -264,11 +264,11 @@
 </div>
 
 <footer>
-    <p>&copy; 2025 Sri Ramakrishna Hospital. All rights reserved.</p>
+    <p>&copy; 2025 PSG Hospital. All rights reserved.</p>
 </footer>
 
 <script>
-   const appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+   const appointments = JSON.parse(localStorage.getItem("appointmentspsg")) || [];
 const statuses = JSON.parse(localStorage.getItem("appointmentStatuses")) || {};
 const appointmentsContainer = document.getElementById("appointments-container");
 
@@ -355,7 +355,7 @@ function approveAppointment(index) {
 function clearAppointment(index) {
     appointments.splice(index, 1);
     delete statuses[index]; // Clear status of the deleted appointment
-    localStorage.setItem("appointments", JSON.stringify(appointments));
+    localStorage.setItem("appointmentspsg", JSON.stringify(appointments));
     localStorage.setItem("appointmentStatuses", JSON.stringify(statuses));
     displayAppointments(appointments); // Refresh the appointment list
 }

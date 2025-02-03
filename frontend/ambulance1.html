@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Ambulance Driver List</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e6f2ff 0%, #c2e0ff 100%);
+            color: #2c3e50;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a5f7a 0%, #2980b9 100%);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px 10px 0 0;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header i {
+            margin-right: 15px;
+            font-size: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        .driver-list {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .driver-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+            position: relative;
+            margin: 10px;
+            border-radius: 10px;
+            background: linear-gradient(to right, #f4f9ff, #ffffff);
+        }
+
+        .driver-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 5px;
+            background: linear-gradient(#2c3e50, #3498db);
+            border-radius: 10px 0 0 10px;
+        }
+
+        .driver-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .driver-icon {
+            width: 60px;
+            height: 60px;
+            background: #2980b9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            flex-shrink: 0;
+            animation: float 2s ease-in-out infinite alternate;
+        }
+
+        .driver-details {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .driver-info {
+            flex-grow: 1;
+        }
+
+        .driver-name {
+            font-weight: bold;
+            color: #1a5f7a;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .driver-secondary {
+            color: #34495e;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .driver-secondary i {
+            margin-right: 8px;
+            color: #2980b9;
+        }
+
+        .driver-contact {
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+        }
+
+        .driver-contact i {
+            color: #2ecc71;
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .driver-contact i:hover {
+            transform: scale(1.2);
+        }
+
+        .location-icon {
+            color: #e74c3c;
+            margin-left: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .location-icon:hover {
+            color: #c0392b;
+            transform: scale(1.2);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes float {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+
+        @media (max-width: 768px) {
+            .driver-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .driver-details {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .driver-contact {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <i class="fas fa-ambulance"></i>
+            <h1>Emergency Ambulance Drivers</h1>
+        </div>
+        <div class="driver-list">
+            <div class="driver-item">
+                <div class="driver-icon">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <div class="driver-details">
+                    <div class="driver-info">
+                        <div class="driver-name">Ravi Kumar</div>
+                        <div class="driver-secondary">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Gandhipuram, Coimbatore
+                            <i class="fas fa-ambulance" style="margin-left: 15px;"></i>
+                            TN-37-1234
+                        </div>
+                    </div>
+                    <div class="driver-contact">
+                        <i class="fas fa-phone-alt"></i>
+                        <a href="tel:9876543210">9876543210</a>
+                        <i class="fas fa-map-marker-alt location-icon" onclick="viewLocation('Gandhipuram, Coimbatore')"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="driver-item">
+                <div class="driver-icon">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <div class="driver-details">
+                    <div class="driver-info">
+                        <div class="driver-name">Selvi Ramesh</div>
+                        <div class="driver-secondary">
+                            <i class="fas fa-map-marker-alt"></i>
+                            RS Puram, Coimbatore
+                            <i class="fas fa-ambulance" style="margin-left: 15px;"></i>
+                            TN-37-2345
+                        </div>
+                    </div>
+                    <div class="driver-contact">
+                        <i class="fas fa-phone-alt"></i>
+                        <a href="tel:9876543221">9876543221</a>
+                        <i class="fas fa-map-marker-alt location-icon" onclick="viewLocation('RS Puram, Coimbatore')"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="driver-item">
+                <div class="driver-icon">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <div class="driver-details">
+                    <div class="driver-info">
+                        <div class="driver-name">Manikandan S</div>
+                        <div class="driver-secondary">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Peelamedu, Coimbatore
+                            <i class="fas fa-ambulance" style="margin-left: 15px;"></i>
+                            TN-37-3456
+                        </div>
+                    </div>
+                    <div class="driver-contact">
+                        <i class="fas fa-phone-alt"></i>
+                        <a href="tel:9876543232">9876543232</a>
+                        <i class="fas fa-map-marker-alt location-icon" onclick="viewLocation('Peelamedu, Coimbatore')"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="driver-item">
+                <div class="driver-icon">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <div class="driver-details">
+                    <div class="driver-info">
+                        <div class="driver-name">Arun Prakash</div>
+                        <div class="driver-secondary">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Saibaba Colony, Coimbatore
+                            <i class="fas fa-ambulance" style="margin-left: 15px;"></i>
+                            TN-37-4567
+                        </div>
+                    </div>
+                    <div class="driver-contact">
+                        <i class="fas fa-phone-alt"></i>
+                        <a href="tel:9876543243">9876543243</a>
+                        <i class="fas fa-map-marker-alt location-icon" onclick="viewLocation('Saibaba Colony, Coimbatore')"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="driver-item">
+                <div class="driver-icon">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <div class="driver-details">
+                    <div class="driver-info">
+                        <div class="driver-name">Lakshman</div>
+                        <div class="driver-secondary">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Saravanampatti, Coimbatore
+                            <i class="fas fa-ambulance" style="margin-left: 15px;"></i>
+                            TN-37-5678
+                        </div>
+                    </div>
+                    <div class="driver-contact">
+                        <i class="fas fa-phone-alt"></i>
+                        <a href="tel:9876543254">9876543254</a>
+                        <i class="fas fa-map-marker-alt location-icon" onclick="viewLocation('Saravanampatti, Coimbatore')"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="driver-item">
+                <div class="driver-icon">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <div class="driver-details">
+                    <div class="driver-info">
+                        <div class="driver-name">Muthuvel Raja</div>
+                        <div class="driver-secondary">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Singanallur, Coimbatore
+                            <i class="fas fa-ambulance" style="margin-left: 15px;"></i>
+                            TN-37-6789
+                        </div>
+                    </div>
+                    <div class="driver-contact">
+                        <i class="fas fa-phone-alt"></i>
+                        <a href="tel:9876543265">9876543265</a>
+                        <i class="fas fa-map-marker-alt location-icon" onclick="viewLocation('Singanallur, Coimbatore')"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="driver-item">
+                <div class="driver-icon">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <div class="driver-details">
+                    <div class="driver-info">
+                        <div class="driver-name">Rajesh Kannan</div>
+                        <div class="driver-secondary">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Avinashi Road, Coimbatore
+                            <i class="fas fa-ambulance" style="margin-left: 15px;"></i>
+                            TN-37-7890
+                        </div>
+                    </div>
+                    <div class="driver-contact">
+                        <i class="fas fa-phone-alt"></i>
+                        <a href="tel:9876543276">9876543276</a>
+                        <i class="fas fa-map-marker-alt location-icon" onclick="viewLocation('Avinashi Road, Coimbatore')"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="driver-item">
+                <div class="driver-icon">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <div class="driver-details">
+                    <div class="driver-info">
+                        <div class="driver-name">Kavitha Ramesh</div>
+                        <div class="driver-secondary">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Ganapathy, Coimbatore
+                            <i class="fas fa-ambulance" style="margin-left: 15px;"></i>
+                            TN-37-8901
+                        </div>
+                    </div>
+                    <div class="driver-contact">
+                        <i class="fas fa-phone-alt"></i>
+                        <a href="tel:9876543287">9876543287</a>
+                        <i class="fas fa-map-marker-alt location-icon" onclick="viewLocation('Ganapathy, Coimbatore')"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function viewLocation(area) {
+            const encodedArea = encodeURIComponent(area);
+            window.open(`https://www.google.com/maps/search/?api=1&query=${encodedArea}`, '_blank');
+        }
+    </script>
+</body>
+
+</html>

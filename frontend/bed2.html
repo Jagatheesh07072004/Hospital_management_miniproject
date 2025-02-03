@@ -3,144 +3,385 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hospital Bed2 Availability</title>
+    <title>Hospital Bed Availability</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        :root {
+            --primary-blue: #0d47a1;
+            --secondary-blue: #1976d2;
+            --light-blue: #bbdefb;
+            --accent-blue: #01579b;
+            --hover-blue: #e3f2fd;
+            --header-bg: #1565c0;
+            --row-bg: #ffffff;
+            --total-row-bg: #2196f3;
+        }
+
+        * {
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom, #e3f2fd, #bbdefb);
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e3f2fd, #f5f9ff);
             color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         header {
-            background-color: #0047ab;
+            background: var(--header-bg);
             color: white;
-            padding: 20px;
+            padding: 1rem;
             text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         header h1 {
-            margin: 0;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
         }
 
         .container {
-            padding: 20px;
-            max-width: 800px;
-            margin: 20px auto;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            padding: 1rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
         }
 
-        .ward {
+        .box-row {
+            background-color: #f0f0f5;
+            border-radius: 15px;
+            padding: 1rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px;
-            border-bottom: 1px solid #ddd;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .ward:last-child {
-            border-bottom: none;
+        .box-row:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
         }
 
-        .ward h3 {
-            margin: 0;
-            font-size: 20px;
-        }
-
-        .ward .bed-count {
-            font-size: 18px;
-            font-weight: bold;
-            color: #0047ab;
-        }
-
-        .total {
-            text-align: center;
-            margin: 20px 0;
-            font-size: 24px;
-            color: #0047ab;
-            font-weight: bold;
-        }
-
-        .button-container {
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .button-container a {
-            display: inline-block;
-            background: #ff5c5c;
+        .header-row {
+            background: var(--header-bg);
             color: white;
-            text-decoration: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
         }
 
-        .button-container a:hover {
-            background: #d04c4c;
+        .total-row {
+            background: var(--total-row-bg);
+            color: rgb(6, 6, 6);
+            background-color:  #b6ceed;
+        }
+
+        .ward-name {
+            flex: 1;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #1565c0;
+            font-size: large;
+        }
+
+        .stats-container {
+            display: flex;
+            gap: 1.5rem;
+            flex: 2;
+            justify-content: space-around;
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .stat-circle {
+            width: 60px;    /* Change from 80px to 60px */
+    height: 60px;   /* Change from 80px to 60px */
+    font-size: 1.2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.5rem;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-circle:hover {
+            transform: scale(1.1);
+        }
+
+        .total-beds .stat-circle {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .occupied-beds .stat-circle {
+            background: rgba(229, 62, 62, 0.1);
+            border: 2px solid #e53e3e;
+            color: #e53e3e;
+        }
+
+        .box-row:not(.header-row):not(.total-row) .occupied-beds .stat-circle {
+            background: rgba(229, 62, 62, 0.1);
+            color: #e53e3e;
+        }
+
+        .available-beds .stat-circle {
+            background: rgba(56, 161, 105, 0.1);
+            border: 2px solid #38a169;
+            color: #38a169;
+        }
+
+        .box-row:not(.header-row):not(.total-row) .available-beds .stat-circle {
+            background: rgba(56, 161, 105, 0.1);
+            color: #38a169;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: inherit;
+            opacity: 0.9;
+        }
+
+        .location-container {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .location-btn {
+            background: none;
+            border: none;
+            color: var(--primary-blue);
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .location-btn:hover {
+            transform: scale(1.2);
+            color: var(--secondary-blue);
         }
 
         footer {
-            background-color: #0047ab;
+            background: var(--accent-blue);
             color: white;
+            padding: 1rem;
             text-align: center;
-            padding: 10px 0;
-            margin-top: 20px;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
         }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .box-row {
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .box-row:nth-child(1) { animation-delay: 0.1s; }
+        .box-row:nth-child(2) { animation-delay: 0.2s; }
+        .box-row:nth-child(3) { animation-delay: 0.3s; }
+        .box-row:nth-child(4) { animation-delay: 0.4s; }
+        .box-row:nth-child(5) { animation-delay: 0.5s; }
+        .box-row:nth-child(6) { animation-delay: 0.6s; }
     </style>
-    <script>
-        function loadBed2Availability() {
-            const bed2Data = JSON.parse(localStorage.getItem('bedAvailabilityData_bed2')) || {};
-
-            document.getElementById('general2-count').textContent = bed2Data['general2'] || 0;
-            document.getElementById('icu2-count').textContent = bed2Data['icu2'] || 0;
-            document.getElementById('private2-count').textContent = bed2Data['private2'] || 0;
-            document.getElementById('emergency2-count').textContent = bed2Data['emergency2'] || 0;
-
-            const total = Object.values(bed2Data).reduce((sum, count) => sum + (count || 0), 0);
-            document.getElementById('totalBeds2').textContent = `Total Beds Available: ${total}`;
-        }
-
-        window.onload = loadBed2Availability;
-    </script>
 </head>
 <body>
     <header>
-        <h1>Hospital Bed2 Availability</h1>
-        <p>Check the availability of beds across various wards for Bed2</p>
+        <h1>Hospital Bed Availability</h1>
+        <p>Real-time bed status monitoring</p>
     </header>
 
     <div class="container">
-        <div class="ward">
-            <h3>General Ward</h3>
-            <span id="general2-count" class="bed-count">0</span>
-        </div>
-        <div class="ward">
-            <h3>ICU</h3>
-            <span id="icu2-count" class="bed-count">0</span>
-        </div>
-        <div class="ward">
-            <h3>Private Ward</h3>
-            <span id="private2-count" class="bed-count">0</span>
-        </div>
-        <div class="ward">
-            <h3>Emergency Ward</h3>
-            <span id="emergency2-count" class="bed-count">0</span>
+        <div class="box-row header-row">
+            <div class="ward-name">Bed Types</div>
+            <div class="stats-container">
+                <div class="stat-item total-beds">
+                    <div class="stat-label">Total Beds</div>
+                </div>
+                <div class="stat-item occupied-beds">
+                    <div class="stat-label">Occupied Beds</div>
+                </div>
+                <div class="stat-item available-beds">
+                    <div class="stat-label">Available Beds</div>
+                </div>
+            </div>
         </div>
 
-        <div id="totalBeds2" class="total">Total Beds Available: 0</div>
+        <div class="box-row">
+            <div class="ward-name"><i class="fas fa-procedures"></i>  General Ward</div>
+            <div class="stats-container">
+                <div class="stat-item total-beds">
+                    <div class="stat-circle" id="total-0"></div>
+                    <div class="stat-label">Total</div>
+                </div>
+                <div class="stat-item occupied-beds">
+                    <div class="stat-circle" id="occupied-0"></div>
+                    <div class="stat-label">Occupied</div>
+                </div>
+                <div class="stat-item available-beds">
+                    <div class="stat-circle" id="available-0"></div>
+                    <div class="stat-label">Available</div>
+                </div>
+            </div>
+        </div>
 
-        <div class="button-container">
-            <a href="book_appointment.html">Book Appointment</a>
+        <div class="box-row">
+            <div class="ward-name"><i class="fas fa-heartbeat"></i>  ICU</div>
+            <div class="stats-container">
+                <div class="stat-item total-beds">
+                    <div class="stat-circle" id="total-1"></div>
+                    <div class="stat-label">Total</div>
+                </div>
+                <div class="stat-item occupied-beds">
+                    <div class="stat-circle" id="occupied-1"></div>
+                    <div class="stat-label">Occupied</div>
+                </div>
+                <div class="stat-item available-beds">
+                    <div class="stat-circle" id="available-1"></div>
+                    <div class="stat-label">Available</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-row">
+            <div class="ward-name"><i class="fas fa-bed"></i>  Private Ward</div>
+            <div class="stats-container">
+                <div class="stat-item total-beds">
+                    <div class="stat-circle" id="total-2"></div>
+                    <div class="stat-label">Total</div>
+                </div>
+                <div class="stat-item occupied-beds">
+                    <div class="stat-circle" id="occupied-2"></div>
+                    <div class="stat-label">Occupied</div>
+                </div>
+                <div class="stat-item available-beds">
+                    <div class="stat-circle" id="available-2"></div>
+                    <div class="stat-label">Available</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-row">
+            <div class="ward-name"><i class="fas fa-ambulance"></i>  Emergency Ward</div>
+            <div class="stats-container">
+                <div class="stat-item total-beds">
+                    <div class="stat-circle" id="total-3"></div>
+                    <div class="stat-label">Total</div>
+                </div>
+                <div class="stat-item occupied-beds">
+                    <div class="stat-circle" id="occupied-3"></div>
+                    <div class="stat-label">Occupied</div>
+                </div>
+                <div class="stat-item available-beds">
+                    <div class="stat-circle" id="available-3"></div>
+                    <div class="stat-label">Available</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-row total-row">
+            <div class="ward-name">Total</div>
+            <div class="stats-container">
+                <div class="stat-item total-beds">
+                    <div class="stat-circle" id="total-beds"></div>
+                    <div class="stat-label">Total</div>
+                </div>
+                <div class="stat-item occupied-beds">
+                    <div class="stat-circle" id="total-occupied"></div>
+                    <div class="stat-label">Occupied</div>
+                </div>
+                <div class="stat-item available-beds">
+                    <div class="stat-circle" id="total-available"></div>
+                    <div class="stat-label">Available</div>
+                </div>
+            </div>
         </div>
     </div>
 
     <footer>
-        <p>Sri PSG Hospital | Address: Coimbatore, Tamil Nadu, India | Phone: +91-1234567890 | Email: info@psghospital.com</p>
+        <p>PSG Hospital | Address: Coimbatore, Tamil Nadu, India | Phone: +91-1234567890 | Email: info@sriramakrishnahospital.com</p>
     </footer>
+
+    <script>
+        function calculateColumnTotal(columnIndex) {
+            let total = 0;
+            for (let i = 0; i < 4; i++) {
+                const value = parseInt(document.getElementById(`${columnIndex}-${i}`).textContent) || 0;
+                total += value;
+            }
+            return total;
+        }
+
+        function updateTotalRow() {
+            const totalBeds = calculateColumnTotal('total');
+            const totalOccupied = calculateColumnTotal('occupied');
+            const totalAvailable = calculateColumnTotal('available');
+
+            document.getElementById("total-beds").textContent = totalBeds;
+            document.getElementById("total-occupied").textContent = totalOccupied;
+            document.getElementById("total-available").textContent = totalAvailable;
+        }
+
+        function updateBedCounts() {
+            const wardTotals = {
+                "General Ward": 400,
+                "ICU": 200,
+                "Private Ward": 300,
+                "Emergency Ward": 600
+            };
+
+            const wards = ["General Ward", "ICU", "Private Ward", "Emergency Ward"];
+            const bedData = JSON.parse(localStorage.getItem('bedAvailability2')) || {};
+
+            wards.forEach((ward, index) => {
+                const total = wardTotals[ward];
+                const available = bedData[ward] || Math.floor(Math.random() * (total * 0.4));
+                const occupied = total - available;
+
+                document.getElementById(`total-${index}`).textContent = total;
+                document.getElementById(`occupied-${index}`).textContent = occupied;
+                document.getElementById(`available-${index}`).textContent = available;
+            });
+
+            updateTotalRow();
+        }
+
+        window.onload = updateBedCounts;
+    </script>
 </body>
 </html>

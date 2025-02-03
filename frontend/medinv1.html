@@ -411,42 +411,53 @@
       }
 
       async function generateBill() {
-        const popup = document.getElementById("popup");
-        const overlay = document.getElementById("overlay");
-        const popupContent = document.getElementById("popup-content");
+  const popup = document.getElementById("popup");
+  const overlay = document.getElementById("overlay");
+  const popupContent = document.getElementById("popup-content");
 
-        popupContent.innerHTML = bill
-          .map(
-            (item) =>
-              `<p>${item.name} - ${item.quantity} x ${item.price} = ${
-                item.quantity * item.price
-              }</p>`
-          )
-          .join("");
+  popupContent.innerHTML = bill
+    .map(
+      (item) =>
+        `<p>${item.name} - ${item.quantity} x ${item.price} = ${
+          item.quantity * item.price
+        }</p>`
+    )
+    .join("");
 
-        const total = bill.reduce(
-          (sum, item) => sum + item.quantity * item.price,
-          0
-        );
-        popupContent.innerHTML += `<p class="total">Total: ${total}</p>`;
-        popup.style.display = "block";
-        overlay.style.display = "block";
+  const total = bill.reduce(
+    (sum, item) => sum + item.quantity * item.price,
+    0
+  );
+  popupContent.innerHTML += `<p class="total">Total: ${total}</p>`;
+  popup.style.display = "block";
+  overlay.style.display = "block";
 
-        const response = await fetch("/api/update-inventory", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(bill.map((item) => ({ id: item.id, quantity: item.quantity }))),
-        });
+  const response = await fetch("/api/update-inventory", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(bill.map((item) => ({ id: item.id, quantity: item.quantity }))),
+  });
 
-        if (response.ok) {
-          alert("Inventory updated successfully!");
-          bill = [];
-          document.querySelector("#bill").innerHTML = "";
-          fetchInventory(currentPage);
-        } else {
-          alert("Error updating inventory!");
-        }
+  if (response.ok) {
+    alert("Inventory updated successfully!");
+    bill.forEach(async (item) => {
+      // Notify if stock is below 10
+      const notifyResponse = await fetch("/api/notify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ medicineName: item.name }),
+      });
+      if (notifyResponse.ok) {
+        console.log(`Notification sent for low stock of ${item.name}.`);
       }
+    });
+    bill = [];
+    document.querySelector("#bill").innerHTML = "";
+    fetchInventory(currentPage);
+  } else {
+    alert("Error updating inventory!");
+  }
+}
 
       function closePopup() {
         document.getElementById("popup").style.display = "none";
@@ -469,7 +480,7 @@
           await fetch("/api/update-inventory", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify([{ id, quantity: +newQuantity }]),
+            body: JSON.stringify([{ id, quantity: -newQuantity }]),
           });
           alert("Quantity updated successfully!");
           fetchInventory(currentPage);

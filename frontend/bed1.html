@@ -7,154 +7,196 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-blue: #1a4f8b;
-            --secondary-blue: #3474c5;
-            --light-blue: #e8f1ff;
-            --accent-blue: #0a2d52;
+            --primary-blue: #0d47a1;
+            --secondary-blue: #1976d2;
+            --light-blue: #bbdefb;
+            --accent-blue: #01579b;
+            --hover-blue: #e3f2fd;
+            --header-bg: #1565c0;
+            --row-bg: #ffffff;
+            --total-row-bg: #2196f3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, var(--light-blue), #ffffff);
+            background: linear-gradient(135deg, #e3f2fd, #f5f9ff);
             color: #333;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         header {
-            background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue));
+            background: var(--header-bg);
             color: white;
-            padding: 20px;
+            padding: 1rem;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            animation: fadeInDown 0.8s ease-out;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         header h1 {
-            margin: 0;
-            font-size: 2.5em;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
         header p {
-            margin: 10px 0 0;
-            font-size: 1.2em;
+            font-size: 1.1rem;
             opacity: 0.9;
         }
 
         .container {
-            padding: 20px;
-            max-width: 800px;
-            margin: 20px auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            animation: slideUp 0.8s ease-out;
+            flex: 1;
+            padding: 1rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
         }
 
-        .ward {
+        .box-row {
+            background-color: #f0f0f5;
+            border-radius: 15px;
+            padding: 1rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px;
-            margin: 15px 0;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: fadeIn 0.6s ease-out;
         }
 
-        .ward:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        .box-row:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
         }
 
-        .ward h3 {
-            margin: 0;
-            font-size: 20px;
-            color: var(--primary-blue);
+        .header-row {
+            background: var(--header-bg);
+            color: white;
+            font-weight: bold;
+        }
+
+        .total-row {
+            background: var(--total-row-bg);
+            color: rgb(6, 6, 6);
+            background-color:  #b6ceed;
+        }
+
+        .ward-name {
+            flex: 1;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #1565c0;
+            font-size: large;
+        }
+
+        .stats-container {
+            display: flex;
+            gap: 1.5rem;
+            flex: 2;
+            justify-content: space-around;
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .stat-circle {
+            width: 60px;    /* Change from 80px to 60px */
+    height: 60px;   /* Change from 80px to 60px */
+    font-size: 1.2rem;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 10px;
-        }
-
-        .ward .bed-count {
-            font-size: 24px;
+            justify-content: center;
+            margin: 0 auto 0.5rem;
             font-weight: bold;
-            color: var(--secondary-blue);
-            background: var(--light-blue);
-            padding: 10px 20px;
-            border-radius: 50px;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease;
         }
 
-        .ward:hover .bed-count {
+        .stat-circle:hover {
             transform: scale(1.1);
         }
 
-        .total {
+        .total-beds .stat-circle {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .occupied-beds .stat-circle {
+            background: rgba(229, 62, 62, 0.1);
+            border: 2px solid #e53e3e;
+            color: #e53e3e;
+        }
+
+        .box-row:not(.header-row):not(.total-row) .occupied-beds .stat-circle {
+            background: rgba(229, 62, 62, 0.1);
+            color: #e53e3e;
+        }
+
+        .available-beds .stat-circle {
+            background: rgba(56, 161, 105, 0.1);
+            border: 2px solid #38a169;
+            color: #38a169;
+        }
+
+        .box-row:not(.header-row):not(.total-row) .available-beds .stat-circle {
+            background: rgba(56, 161, 105, 0.1);
+            color: #38a169;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: inherit;
+            opacity: 0.9;
+        }
+
+        .location-container {
             text-align: center;
-            margin: 30px 0;
-            font-size: 28px;
+            margin-top: 1rem;
+        }
+
+        .location-btn {
+            background: none;
+            border: none;
             color: var(--primary-blue);
-            font-weight: bold;
-            padding: 20px;
-            border-radius: 10px;
-            background: var(--light-blue);
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
             animation: pulse 2s infinite;
         }
 
-        .button-container {
-            text-align: center;
-            margin: 30px 0;
-            display: flex;
-            gap: 15px;
-            justify-content: center;
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
 
-        .button-container a {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: linear-gradient(to right, var(--secondary-blue), var(--primary-blue));
-            color: white;
-            text-decoration: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .button-container a:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-            background: linear-gradient(to right, var(--primary-blue), var(--accent-blue));
+        .location-btn:hover {
+            transform: scale(1.2);
+            color: var(--secondary-blue);
         }
 
         footer {
-            background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue));
+            background: var(--accent-blue);
             color: white;
+            padding: 1rem;
             text-align: center;
-            padding: 15px 0;
-            margin-top: 40px;
-            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+            font-size: 0.9rem;
+            margin-top: 2rem;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
         }
 
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideUp {
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
                 transform: translateY(20px);
@@ -165,85 +207,181 @@
             }
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+        .box-row {
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
         }
 
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(52, 116, 197, 0.4);
-            }
-            70% {
-                box-shadow: 0 0 0 10px rgba(52, 116, 197, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(52, 116, 197, 0);
-            }
-        }
+        .box-row:nth-child(1) { animation-delay: 0.1s; }
+        .box-row:nth-child(2) { animation-delay: 0.2s; }
+        .box-row:nth-child(3) { animation-delay: 0.3s; }
+        .box-row:nth-child(4) { animation-delay: 0.4s; }
+        .box-row:nth-child(5) { animation-delay: 0.5s; }
+        .box-row:nth-child(6) { animation-delay: 0.6s; }
     </style>
-    <script>
-        function calculateTotal() {
-            const beds = document.querySelectorAll('.bed-count');
-            let total = 0;
-            beds.forEach(bed => {
-                total += parseInt(bed.textContent);
-            });
-            document.getElementById('totalBeds').textContent = `Total Beds Available: ${total}`;
-        }
-
-        window.onload = function () {
-            const bedData = JSON.parse(localStorage.getItem('bedAvailability'));
-
-            if (bedData) {
-                document.querySelector('.general .bed-count').textContent = bedData['General Ward'] || 0;
-                document.querySelector('.icu .bed-count').textContent = bedData['ICU'] || 0;
-                document.querySelector('.private .bed-count').textContent = bedData['Private Ward'] || 0;
-                document.querySelector('.emergency .bed-count').textContent = bedData['Emergency Ward'] || 0;
-                calculateTotal();
-            } else {
-                document.getElementById('totalBeds').textContent = "Total Beds Available: 0";
-            }
-        };
-    </script>
 </head>
 <body>
     <header>
         <h1>Hospital Bed Availability</h1>
-        <p>Check the availability of beds across various wards</p>
+        <p>Real-time bed status monitoring</p>
     </header>
 
     <div class="container">
-        <div class="ward general">
-            <h3><i class="fas fa-procedures"></i> General Ward</h3>
-            <span class="bed-count">50</span>
-        </div>
-        <div class="ward icu">
-            <h3><i class="fas fa-heartbeat"></i> ICU</h3>
-            <span class="bed-count">10</span>
-        </div>
-        <div class="ward private">
-            <h3><i class="fas fa-bed"></i> Private Ward</h3>
-            <span class="bed-count">20</span>
-        </div>
-        <div class="ward emergency">
-            <h3><i class="fas fa-ambulance"></i> Emergency Ward</h3>
-            <span class="bed-count">5</span>
+        <div class="box-row header-row">
+            <div class="ward-name">Bed Types</div>
+            <div class="stats-container">
+                <div class="stat-item total-beds">
+                    <div class="stat-label">Total Beds</div>
+                </div>
+                <div class="stat-item occupied-beds">
+                    <div class="stat-label">Occupied Beds</div>
+                </div>
+                <div class="stat-item available-beds">
+                    <div class="stat-label">Available Beds</div>
+                </div>
+            </div>
         </div>
 
-        <div id="totalBeds" class="total">Total Beds Available: 0</div>
+        <div class="box-row">
+            <div class="ward-name"><i class="fas fa-procedures"></i>  General Ward</div>
+            <div class="stats-container">
+                <div class="stat-item total-beds">
+                    <div class="stat-circle" id="total-0"></div>
+                    <div class="stat-label">Total</div>
+                </div>
+                <div class="stat-item occupied-beds">
+                    <div class="stat-circle" id="occupied-0"></div>
+                    <div class="stat-label">Occupied</div>
+                </div>
+                <div class="stat-item available-beds">
+                    <div class="stat-circle" id="available-0"></div>
+                    <div class="stat-label">Available</div>
+                </div>
+            </div>
+        </div>
 
-        <div class="button-container">
-            <a href="ramakrishna_appointment.html"><i class="fas fa-calendar-alt"></i> Book Appointment</a>
+        <div class="box-row">
+            <div class="ward-name"><i class="fas fa-heartbeat"></i>  ICU</div>
+            <div class="stats-container">
+                <div class="stat-item total-beds">
+                    <div class="stat-circle" id="total-1"></div>
+                    <div class="stat-label">Total</div>
+                </div>
+                <div class="stat-item occupied-beds">
+                    <div class="stat-circle" id="occupied-1"></div>
+                    <div class="stat-label">Occupied</div>
+                </div>
+                <div class="stat-item available-beds">
+                    <div class="stat-circle" id="available-1"></div>
+                    <div class="stat-label">Available</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-row">
+            <div class="ward-name"><i class="fas fa-bed"></i>  Private Ward</div>
+            <div class="stats-container">
+                <div class="stat-item total-beds">
+                    <div class="stat-circle" id="total-2"></div>
+                    <div class="stat-label">Total</div>
+                </div>
+                <div class="stat-item occupied-beds">
+                    <div class="stat-circle" id="occupied-2"></div>
+                    <div class="stat-label">Occupied</div>
+                </div>
+                <div class="stat-item available-beds">
+                    <div class="stat-circle" id="available-2"></div>
+                    <div class="stat-label">Available</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-row">
+            <div class="ward-name"><i class="fas fa-ambulance"></i>  Emergency Ward</div>
+            <div class="stats-container">
+                <div class="stat-item total-beds">
+                    <div class="stat-circle" id="total-3"></div>
+                    <div class="stat-label">Total</div>
+                </div>
+                <div class="stat-item occupied-beds">
+                    <div class="stat-circle" id="occupied-3"></div>
+                    <div class="stat-label">Occupied</div>
+                </div>
+                <div class="stat-item available-beds">
+                    <div class="stat-circle" id="available-3"></div>
+                    <div class="stat-label">Available</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-row total-row">
+            <div class="ward-name">Total</div>
+            <div class="stats-container">
+                <div class="stat-item total-beds">
+                    <div class="stat-circle" id="total-beds"></div>
+                    <div class="stat-label">Total</div>
+                </div>
+                <div class="stat-item occupied-beds">
+                    <div class="stat-circle" id="total-occupied"></div>
+                    <div class="stat-label">Occupied</div>
+                </div>
+                <div class="stat-item available-beds">
+                    <div class="stat-circle" id="total-available"></div>
+                    <div class="stat-label">Available</div>
+                </div>
+            </div>
         </div>
     </div>
 
     <footer>
         <p>Sri Ramakrishna Hospital | Address: Coimbatore, Tamil Nadu, India | Phone: +91-1234567890 | Email: info@sriramakrishnahospital.com</p>
     </footer>
+
+    <script>
+        function calculateColumnTotal(columnIndex) {
+            let total = 0;
+            for (let i = 0; i < 4; i++) {
+                const value = parseInt(document.getElementById(`${columnIndex}-${i}`).textContent) || 0;
+                total += value;
+            }
+            return total;
+        }
+
+        function updateTotalRow() {
+            const totalBeds = calculateColumnTotal('total');
+            const totalOccupied = calculateColumnTotal('occupied');
+            const totalAvailable = calculateColumnTotal('available');
+
+            document.getElementById("total-beds").textContent = totalBeds;
+            document.getElementById("total-occupied").textContent = totalOccupied;
+            document.getElementById("total-available").textContent = totalAvailable;
+        }
+
+        function updateBedCounts() {
+            const wardTotals = {
+                "General Ward": 400,
+                "ICU": 200,
+                "Private Ward": 300,
+                "Emergency Ward": 600
+            };
+
+            const wards = ["General Ward", "ICU", "Private Ward", "Emergency Ward"];
+            const bedData = JSON.parse(localStorage.getItem('bedAvailability')) || {};
+
+            wards.forEach((ward, index) => {
+                const total = wardTotals[ward];
+                const available = bedData[ward] || Math.floor(Math.random() * (total * 0.4));
+                const occupied = total - available;
+
+                document.getElementById(`total-${index}`).textContent = total;
+                document.getElementById(`occupied-${index}`).textContent = occupied;
+                document.getElementById(`available-${index}`).textContent = available;
+            });
+
+            updateTotalRow();
+        }
+
+        window.onload = updateBedCounts;
+    </script>
 </body>
 </html>
